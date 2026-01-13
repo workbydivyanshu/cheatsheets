@@ -33,10 +33,12 @@ python
 exit()
 ```
 
-## Variables & Data Types
+## Variables & Data Types (🟢 Beginner)
 
 ### What are Variables?
 Variables are **containers for storing data**. Think of them as labeled boxes where you put information.
+
+> **Similar to:** JavaScript's `let`/`const`, Java's type declarations, Ruby's variables
 
 ```python
 # Creating variables (no type declaration needed!)
@@ -156,7 +158,7 @@ type(3.14)         # <class 'float'>
 isinstance(42, int)  # True - checks if 42 is an integer
 ```
 
-## Collections (Storing Multiple Values)
+## Collections (🟢 Beginner - Storing Multiple Values)
 
 ### Lists (Ordered, Changeable)
 ```python
@@ -283,7 +285,7 @@ colors1 ^ colors2      # Symmetric difference: in one or the other, not both
 
 **Why sets?** Fast membership testing, removing duplicates, and mathematical operations.
 
-## Control Flow (Making Decisions)
+## Control Flow (🟢 Beginner - Making Decisions)
 
 ### If Statements
 ```python
@@ -357,7 +359,7 @@ if score < 60 or not is_submitted:  # One or both must be true
     print("Assignment not accepted")
 ```
 
-## Loops (Repeating Code)
+## Loops (🟢 Beginner - Repeating Code)
 
 ### For Loops
 ```python
@@ -457,7 +459,7 @@ unique_squared = {x**2 for x in [1, 2, 2, 3, 3, 3]}
 
 **Why comprehensions?** More concise and often faster than regular loops.
 
-## Functions (Reusable Code)
+## Functions (🟢 Beginner - Reusable Code)
 
 ### Defining Functions
 ```python
@@ -550,7 +552,7 @@ sorted_by_score = sorted(students, key=lambda x: x[1])
 
 **Why lambda?** Quick, throwaway functions for simple operations.
 
-## Object-Oriented Programming (OOP)
+## Object-Oriented Programming (🟡 Intermediate - OOP)
 
 ### What is OOP?
 **OOP** organizes code into **objects** that contain data (variables) and behavior (functions). Think of a class as a blueprint for creating objects.
@@ -715,7 +717,7 @@ account.balance = 1500  # (setter with validation)
 
 **Why properties?** Add validation and logic while keeping clean syntax.
 
-## Decorators
+## Decorators (🔴 Advanced)
 
 ### What are Decorators?
 **Decorators** are functions that modify other functions or classes. They "wrap" a function to change or extend its behavior.

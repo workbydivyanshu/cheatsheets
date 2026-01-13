@@ -95,7 +95,7 @@ puts "Hello, #{name}"   # "Hello, Alice"
 "Hello" * 3              # "HelloHelloHello"
 ```
 
-## Arrays & Collections
+## Arrays & Collections (🟡 Intermediate)
 
 ```ruby
 # Array
@@ -235,7 +235,7 @@ end
 sum(1, 2, 3, 4)  # 10
 ```
 
-## Blocks, Procs, and Lambdas - Ruby's Functional Side
+## Blocks, Procs, and Lambdas (🔴 Advanced - Ruby's Functional Side)
 
 ### What are Blocks?
 **Blocks** are chunks of code you pass to methods. They're not objects, but they're fundamental to Ruby. Use `{ }` for one-liners or `do...end` for multi-line.
@@ -427,7 +427,7 @@ button = Button.new { puts "Button clicked!" }
 button.click  # "Button clicked!"
 ```
 
-## Classes & Objects
+## Classes & Objects (🟡 Intermediate)
 
 ```ruby
 class Person
@@ -546,6 +546,19 @@ text.gsub(/\d+/, "XXX")     # "Hello XXX World"
 # Split
 "a,b,c".split(/,/)          # ["a", "b", "c"]
 ```
+
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Confusing `nil` with `false` | `if obj.nil?` not `if obj == nil` |
+| Using `==` for identity | Use `.eql?` or `.equal?` for object identity |
+| Mutating while iterating | Use `.each_with_index` or `.map` |
+| Forgetting implicit return | Ruby methods return last value automatically |
+| Modifying frozen strings | Use `.dup` to create copy before modifying |
+| Wrong string interpolation | Use double quotes: `"Hello #{name}"` |
+| Confusing Proc vs Lambda | Lambdas are stricter (argument checking, return behavior) |
+| Not using .times or .each | Traditional `for` loops are not idiomatic Ruby |
 
 ## Best Practices
 

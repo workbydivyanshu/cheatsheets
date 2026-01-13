@@ -52,7 +52,7 @@ let unknown = undefined; // Not yet assigned
 
 ---
 
-## 2. Working with Strings (Text)
+## 2. Working with Strings (🟢 Beginner - Text)
 
 ### Creating and Using Strings
 
@@ -153,7 +153,7 @@ Math.sqrt(16);      // 4 (square root)
 
 ---
 
-## 4. Arrays (Lists of Values)
+## 4. Arrays (🟢 Beginner - Lists of Values)
 
 ### Creating and Accessing Arrays
 
@@ -240,7 +240,7 @@ nums.some(n => n > 4);      // true (5 is greater than 4)
 
 ---
 
-## 5. Objects (Collections of Properties)
+## 5. Objects (🟡 Intermediate - Collections of Properties)
 
 ### Creating Objects
 
@@ -436,7 +436,7 @@ for (let key in person) {
 
 ---
 
-## 8. Functions (Reusable Code)
+## 8. Functions (🟢 Beginner - Reusable Code)
 
 ### Basic Functions
 
@@ -521,7 +521,7 @@ function getUserInfo(id) {
 
 ---
 
-## 9. Prototypes & Inheritance - JavaScript's Object Model
+## 9. Prototypes & Inheritance (🔴 Advanced - JavaScript's Object Model)
 
 ### What are Prototypes?
 Every JavaScript object has a **prototype** - a template object it inherits from. This is how JavaScript implements inheritance.

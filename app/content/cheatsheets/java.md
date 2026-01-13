@@ -115,7 +115,7 @@ greeting + " World";                  // Concatenation
 String formatted = String.format("Name: %s, Age: %d", "Alice", 25);
 ```
 
-## Collections
+## Collections (🟡 Intermediate)
 
 ### Arrays
 ```java
@@ -396,7 +396,7 @@ public class Printer {
 }
 ```
 
-## Object-Oriented Programming
+## Object-Oriented Programming (🟡 Intermediate)
 
 ### Classes
 ```java
@@ -630,7 +630,7 @@ public class BankAccount {
 }
 ```
 
-## Streams & Functional Programming (Java 8+)
+## Streams & Functional Programming (🔴 Advanced - Java 8+)
 
 ### What are Streams?
 **Streams** are pipelines for processing data. Unlike collections (which store data), streams process data without storing it all in memory. They enable functional programming style in Java.
@@ -833,6 +833,19 @@ Integer::parseInt               // s -> Integer.parseInt(s)
 List::add                        // (list, item) -> list.add(item)
 Person::new                      // () -> new Person()
 ```
+
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Forgetting `new` keyword | `new ArrayList<>()` not `ArrayList<>()` |
+| Null pointer exceptions | Always check `if (obj != null)` |
+| Array out of bounds | Remember arrays are 0-indexed, `length-1` is last |
+| Modifying collection while iterating | Use Iterator or stream API instead |
+| Not closing resources | Use try-with-resources: `try (Resource r = ...)` |
+| Confusing `==` with `.equals()` | Use `.equals()` to compare String content |
+| Wrong import statements | `import java.util.ArrayList;` not just `import java.util;` |
+| Forgetting `@Override` annotation | Mark overridden methods with `@Override` for clarity |
 
 ## Best Practices
 

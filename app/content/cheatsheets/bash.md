@@ -37,7 +37,7 @@ echo "Line 2"          # Prints on separate lines
 
 ---
 
-## 2. Variables (Storing Information)
+## 2. Variables (🟢 Beginner - Storing Information)
 
 ### Creating and Using Variables
 
@@ -149,7 +149,7 @@ echo $count            # 6
 
 ---
 
-## 5. Control Flow: Making Decisions
+## 5. Control Flow (🟢 Beginner - Making Decisions)
 
 ### If Statements
 
@@ -344,7 +344,7 @@ echo ${person[name]}   # John
 
 ---
 
-## 8. Functions
+## 8. Functions (🟡 Intermediate)
 
 ### Defining Functions
 
@@ -610,7 +610,7 @@ echo "All commands succeeded!"
 
 ---
 
-## 11. Arrays (Collections of Data)
+## 11. Arrays (🟡 Intermediate - Collections of Data)
 
 ### Creating Arrays
 ```bash

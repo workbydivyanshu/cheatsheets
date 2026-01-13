@@ -32,9 +32,7 @@ SELECT * FROM users;
 
 **Why this matters:** `SELECT` retrieves data, `*` means "all columns", `FROM users` specifies which table.
 
-## SELECT - Retrieving Data
-
-### Basic SELECT
+## SELECT - Retrieving Data (🟢 Beginner)
 ```sql
 -- Get all columns from all rows
 SELECT * FROM users;
@@ -322,7 +320,7 @@ GROUP BY department
 HAVING COUNT(*) > 2;      -- Filter groups second
 ```
 
-## JOINs - Combining Tables
+## JOINs - Combining Tables (🟡 Intermediate)
 
 ### Why Joins Matter
 **Databases have multiple tables** to avoid repeating data. Joins combine them:

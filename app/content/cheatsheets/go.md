@@ -327,7 +327,7 @@ for i := 0; i < 10; i++ {
 }
 ```
 
-## Functions
+## Functions (🟢 Beginner)
 
 ### Basic Functions
 ```go
@@ -385,7 +385,7 @@ increment := func(x int) int {
 increment(5)  // 6
 ```
 
-## Structs & Interfaces
+## Structs & Interfaces (🟡 Intermediate)
 
 ### Structs
 ```go
@@ -576,9 +576,7 @@ if err != nil {
 }
 ```
 
-## Testing
-
-### Why Testing Matters?
+## Testing (🟡 Intermediate)
 Testing ensures your code works as expected. Go's testing philosophy is **simple, fast, and built-in**. No special frameworks needed!
 
 ### Writing Unit Tests
@@ -747,6 +745,19 @@ func TestHandler(t *testing.T) {
 ```
 
 **Why this matters?** Manual testing is error-prone. Automated tests catch regressions!
+
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Ignoring errors silently | Always check `if err != nil { return err }` |
+| Unused imports | Remove imports, Go compiler catches this |
+| Forgetting defer for cleanup | Use `defer file.Close()` to ensure cleanup |
+| Returning nil interface | Return `nil` not empty interface, `var x interface{}` |
+| Race conditions with goroutines | Use channels or sync.Mutex for synchronization |
+| Copying large structs | Pass pointers to large structs, not values |
+| Not closing channels | Sender must close, receivers can range over it |
+| Mixing := and var incorrectly | `:=` only in functions, `var` for package-level |
 
 ## Best Practices
 

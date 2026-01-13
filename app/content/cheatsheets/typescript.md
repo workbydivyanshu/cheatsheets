@@ -134,9 +134,7 @@ dice = 3;  // OK
 dice = 7;  // ERROR
 ```
 
-## Functions
-
-### Typed Parameters & Returns
+## Functions (🟢 Beginner)
 ```typescript
 // Basic function
 function add(a: number, b: number): number {
@@ -442,7 +440,7 @@ getProperty({ name: "Alice", age: 25 }, "name");  // "Alice"
 getProperty({ name: "Alice" }, "age");             // ERROR
 ```
 
-## Classes
+## Classes (🟡 Intermediate)
 
 ### Basic Classes
 ```typescript
@@ -666,9 +664,7 @@ try {
     if (error instanceof Error) {
         console.log(`Error: ${error.message}`);
     }
-}## Design Patterns & Real-World Architecture
-
-### Why Design Patterns Matter?
+}## Design Patterns & Real-World Architecture (🔴 Advanced)
 Patterns are **proven solutions** to common problems. They make code more maintainable, testable, and scalable. Essential for professional applications!
 
 ### Dependency Injection (DI)
@@ -1007,6 +1003,19 @@ describe("OrderService", () => {
     });
 });
 ```
+
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Using `any` type excessively | Use `unknown` or specific types instead |
+| Not enabling strict mode | Enable `"strict": true` in tsconfig.json |
+| Type assertions with `as` everywhere | Use proper typing instead of `.as any` |
+| Forgetting `undefined` in union types | Function may return undefined, type it: `T \| undefined` |
+| Confusing interfaces with types | Both work, but prefer interfaces for objects |
+| Not using generics for reusability | Use `<T>` to make functions work with multiple types |
+| Assuming null and undefined are same | They're different: `null` is intentional, `undefined` is not |
+| Not updating dependencies | Keep TypeScript version current for better features |
 
 ## Best Practices
 
