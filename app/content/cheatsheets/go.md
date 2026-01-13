@@ -576,6 +576,178 @@ if err != nil {
 }
 ```
 
+## Testing
+
+### Why Testing Matters?
+Testing ensures your code works as expected. Go's testing philosophy is **simple, fast, and built-in**. No special frameworks needed!
+
+### Writing Unit Tests
+```go
+// file.go
+package main
+
+func Add(a, b int) int {
+    return a + b
+}
+
+// file_test.go - always use _test suffix
+package main
+
+import "testing"
+
+func TestAdd(t *testing.T) {
+    result := Add(2, 3)
+    expected := 5
+    
+    if result != expected {
+        t.Errorf("Add(2, 3) = %d, expected %d", result, expected)
+    }
+}
+```
+
+**Important:** Test functions must:
+- Start with `Test`
+- Take `*testing.T` parameter
+- Be in `_test.go` files
+
+### Running Tests
+```bash
+# Run all tests
+go test
+
+# Run with verbose output
+go test -v
+
+# Run specific test
+go test -run TestAdd
+
+# Show test coverage
+go test -cover
+```
+
+### Table-Driven Tests
+Elegant way to test multiple scenarios:
+
+```go
+func TestAddTableDriven(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive numbers", 2, 3, 5},
+        {"with zero", 5, 0, 5},
+        {"negative numbers", -2, -3, -5},
+        {"mixed signs", 10, -5, 5},
+    }
+    
+    for _, test := range tests {
+        t.Run(test.name, func(t *testing.T) {
+            result := Add(test.a, test.b)
+            if result != test.expected {
+                t.Errorf("got %d, expected %d", result, test.expected)
+            }
+        })
+    }
+}
+```
+
+**Why this pattern?** Easy to add new test cases - just add to the slice!
+
+### Sub-tests
+```go
+func TestUserService(t *testing.T) {
+    t.Run("create user", func(t *testing.T) {
+        user := CreateUser("Alice")
+        if user.Name != "Alice" {
+            t.Fail()
+        }
+    })
+    
+    t.Run("delete user", func(t *testing.T) {
+        DeleteUser(1)
+        // assert user is deleted
+    })
+}
+```
+
+### Test Setup & Cleanup
+```go
+func TestWithSetup(t *testing.T) {
+    // Setup
+    database := setupTestDB()
+    defer database.Close()  // Cleanup after test
+    
+    // Test
+    result := database.Query("SELECT * FROM users")
+    if result == nil {
+        t.Fatal("expected result, got nil")
+    }
+}
+```
+
+**`t.Fatal()` vs `t.Error()`:**
+- `t.Fatal()` - stops test immediately
+- `t.Error()` - logs error, continues test
+
+### Benchmark Testing
+Measure performance:
+
+```go
+func BenchmarkAdd(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Add(2, 3)
+    }
+}
+
+// Run benchmarks
+// go test -bench=. -benchmem
+```
+
+Output example:
+```
+BenchmarkAdd-8    1000000000    1.03 ns/op    0 B/op    0 allocs/op
+```
+- 1 billion operations per second
+- 1.03 nanoseconds per operation
+- 0 memory allocations
+
+### Helper Functions
+```go
+func TestMultipleAsserts(t *testing.T) {
+    testCases := []string{"Alice", "Bob", "Charlie"}
+    
+    for _, name := range testCases {
+        user := CreateUser(name)
+        assertUserName(t, user, name)  // Helper function
+    }
+}
+
+func assertUserName(t *testing.T, user User, expected string) {
+    if user.Name != expected {
+        t.Errorf("expected %s, got %s", expected, user.Name)
+    }
+}
+```
+
+### Testing HTTP Handlers
+```go
+import "net/http/httptest"
+
+func TestHandler(t *testing.T) {
+    req := httptest.NewRequest("GET", "/api/users", nil)
+    w := httptest.NewRecorder()
+    
+    handler(w, req)
+    
+    if w.Code != http.StatusOK {
+        t.Errorf("expected 200, got %d", w.Code)
+    }
+}
+```
+
+**Why this matters?** Manual testing is error-prone. Automated tests catch regressions!
+
 ## Best Practices
 
 1. **Handle errors explicitly:**
@@ -596,6 +768,12 @@ if err != nil {
 
 5. **Use meaningful names**
 
+6. **Write tests as you code** - test-driven development
+
+7. **Use table-driven tests** - scalable test patterns
+
+8. **Test the happy path AND edge cases** - empty inputs, nil values, limits
+
 ## Summary
 
 Go is **simple, fast, and powerful**. Its concurrency features, fast compilation, and clean syntax make it ideal for modern systems. Perfect for microservices, APIs, and backend services!
@@ -606,3 +784,4 @@ Key strengths:
 - **Simple syntax** - easy to learn and read
 - **Cross-platform** - compile for any OS
 - **Great for DevOps** - Kubernetes, Docker, Terraform
+- **Built-in testing** - no frameworks needed, just write _test.go files

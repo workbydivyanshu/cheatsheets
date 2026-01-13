@@ -666,34 +666,346 @@ try {
     if (error instanceof Error) {
         console.log(`Error: ${error.message}`);
     }
+}## Design Patterns & Real-World Architecture
+
+### Why Design Patterns Matter?
+Patterns are **proven solutions** to common problems. They make code more maintainable, testable, and scalable. Essential for professional applications!
+
+### Dependency Injection (DI)
+**Problem:** Classes tightly coupled to their dependencies, hard to test.
+
+```typescript
+// ❌ BAD: Tightly coupled
+class UserService {
+    private database: Database;
+    
+    constructor() {
+        this.database = new PostgresDatabase();  // Hard-coded!
+    }
 }
 
-// With finally
-try {
-    // code
-} catch (error) {
-    // handle
-} finally {
-    // cleanup
+// ✅ GOOD: Dependency injection
+class UserService {
+    constructor(private database: Database) {}
+    
+    getUser(id: number): User {
+        return this.database.findUser(id);
+    }
+}
+
+// Usage - inject any database implementation
+const postgresDB = new PostgresDatabase();
+const userService = new UserService(postgresDB);
+
+const mockDB = new MockDatabase();
+const testService = new UserService(mockDB);  // Easy to test!
+```
+
+**Interface-based DI:**
+```typescript
+interface IDatabase {
+    findUser(id: number): User;
+    saveUser(user: User): void;
+}
+
+class PostgresDatabase implements IDatabase {
+    findUser(id: number): User { /* ... */ }
+    saveUser(user: User): void { /* ... */ }
+}
+
+class MockDatabase implements IDatabase {
+    findUser(id: number): User { return mockUser; }
+    saveUser(user: User): void { /* do nothing */ }
+}
+
+// Works with any implementation
+class UserService {
+    constructor(private db: IDatabase) {}
 }
 ```
 
-### Custom Errors
+**Benefits:**
+- Easy to test (inject mocks)
+- Flexible implementations
+- Loose coupling
+- Follows SOLID principles
+
+### Observer Pattern
+**Problem:** Multiple objects need to react to state changes.
+
 ```typescript
-class ValidationError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "ValidationError";
+// Observer interface
+interface Observer {
+    update(data: any): void;
+}
+
+// Subject that notifies observers
+class EventEmitter {
+    private observers: Observer[] = [];
+    
+    subscribe(observer: Observer): void {
+        this.observers.push(observer);
+    }
+    
+    unsubscribe(observer: Observer): void {
+        this.observers = this.observers.filter(o => o !== observer);
+    }
+    
+    notify(data: any): void {
+        this.observers.forEach(obs => obs.update(data));
     }
 }
 
-try {
-    throw new ValidationError("Invalid email");
-} catch (error) {
-    if (error instanceof ValidationError) {
-        console.log(error.message);
+// Concrete observers
+class EmailNotifier implements Observer {
+    update(data: any): void {
+        console.log(`Sending email: ${data}`);
     }
 }
+
+class LoggerObserver implements Observer {
+    update(data: any): void {
+        console.log(`Logged: ${data}`);
+    }
+}
+
+// Usage
+const emitter = new EventEmitter();
+emitter.subscribe(new EmailNotifier());
+emitter.subscribe(new LoggerObserver());
+emitter.notify("User registered!");  // Both observers notified
+```
+
+**Real-world example - Form state changes:**
+```typescript
+class Form {
+    private observers: Observer[] = [];
+    
+    subscribe(observer: Observer): void {
+        this.observers.push(observer);
+    }
+    
+    onFieldChange(field: string, value: any): void {
+        this.observers.forEach(obs => obs.update({ field, value }));
+    }
+}
+
+class ValidationObserver implements Observer {
+    update(data: any): void {
+        console.log(`Validating ${data.field}`);
+    }
+}
+
+class APIObserver implements Observer {
+    update(data: any): void {
+        console.log(`Sending ${data.field} to API`);
+    }
+}
+
+const form = new Form();
+form.subscribe(new ValidationObserver());
+form.subscribe(new APIObserver());
+form.onFieldChange("email", "user@example.com");
+```
+
+### Repository Pattern
+**Problem:** Data access logic scattered throughout application.
+
+**Solution:** Centralize data access in a repository:
+
+```typescript
+interface IUserRepository {
+    findById(id: number): Promise<User>;
+    findAll(): Promise<User[]>;
+    save(user: User): Promise<void>;
+    delete(id: number): Promise<void>;
+}
+
+// Database implementation
+class UserRepository implements IUserRepository {
+    async findById(id: number): Promise<User> {
+        const result = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+        return result.rows[0];
+    }
+    
+    async findAll(): Promise<User[]> {
+        const result = await db.query("SELECT * FROM users");
+        return result.rows;
+    }
+    
+    async save(user: User): Promise<void> {
+        await db.query(
+            "INSERT INTO users (name, email) VALUES ($1, $2)",
+            [user.name, user.email]
+        );
+    }
+    
+    async delete(id: number): Promise<void> {
+        await db.query("DELETE FROM users WHERE id = $1", [id]);
+    }
+}
+
+// Business logic doesn't know about database
+class UserService {
+    constructor(private repository: IUserRepository) {}
+    
+    async getUserInfo(id: number): Promise<User> {
+        return this.repository.findById(id);
+    }
+    
+    async getAllUsers(): Promise<User[]> {
+        return this.repository.findAll();
+    }
+}
+
+// For testing - mock repository
+class MockUserRepository implements IUserRepository {
+    private users: User[] = [];
+    
+    async findById(id: number): Promise<User> {
+        return this.users.find(u => u.id === id)!;
+    }
+    
+    async findAll(): Promise<User[]> {
+        return this.users;
+    }
+    
+    async save(user: User): Promise<void> {
+        this.users.push(user);
+    }
+    
+    async delete(id: number): Promise<void> {
+        this.users = this.users.filter(u => u.id !== id);
+    }
+}
+
+// Use in tests
+const mockRepo = new MockUserRepository();
+const service = new UserService(mockRepo);
+const users = await service.getAllUsers();
+```
+
+**Benefits:**
+- Business logic independent of data source
+- Easy to test (swap in mock repository)
+- Can switch databases without changing service code
+- Consistent data access patterns
+
+### Singleton Pattern
+**Problem:** Need exactly one instance of a resource (database, cache, logger).
+
+```typescript
+class DatabaseConnection {
+    private static instance: DatabaseConnection;
+    
+    private constructor() {
+        // Private constructor prevents new DatabaseConnection()
+    }
+    
+    static getInstance(): DatabaseConnection {
+        if (!DatabaseConnection.instance) {
+            DatabaseConnection.instance = new DatabaseConnection();
+        }
+        return DatabaseConnection.instance;
+    }
+    
+    connect(): void {
+        console.log("Connected to database");
+    }
+}
+
+// Usage - always the same instance
+const db1 = DatabaseConnection.getInstance();
+const db2 = DatabaseConnection.getInstance();
+console.log(db1 === db2);  // true - same instance
+```
+
+**Simpler in TypeScript - module singleton:**
+```typescript
+class Logger {
+    log(message: string): void {
+        console.log(`[LOG] ${message}`);
+    }
+}
+
+// Export single instance
+export const logger = new Logger();
+
+// Usage in other files
+import { logger } from "./logger";
+logger.log("Something happened");
+```
+
+## Testing Strategies
+
+### Unit Testing with Jest
+```typescript
+interface Calculator {
+    add(a: number, b: number): number;
+}
+
+class SimpleCalculator implements Calculator {
+    add(a: number, b: number): number {
+        return a + b;
+    }
+}
+
+// Test file
+describe("Calculator", () => {
+    let calculator: Calculator;
+    
+    beforeEach(() => {
+        calculator = new SimpleCalculator();
+    });
+    
+    it("should add two numbers", () => {
+        const result = calculator.add(2, 3);
+        expect(result).toBe(5);
+    });
+    
+    it("should handle negative numbers", () => {
+        const result = calculator.add(-2, 3);
+        expect(result).toBe(1);
+    });
+});
+```
+
+### Mocking Dependencies
+```typescript
+class OrderService {
+    constructor(
+        private paymentService: PaymentService,
+        private emailService: EmailService
+    ) {}
+    
+    async placeOrder(order: Order): Promise<void> {
+        await this.paymentService.charge(order.total);
+        await this.emailService.sendConfirmation(order);
+    }
+}
+
+// Test with mocks
+describe("OrderService", () => {
+    it("should process order and send email", async () => {
+        const mockPayment = {
+            charge: jest.fn().mockResolvedValue(true)
+        };
+        
+        const mockEmail = {
+            sendConfirmation: jest.fn().mockResolvedValue(true)
+        };
+        
+        const service = new OrderService(
+            mockPayment as any,
+            mockEmail as any
+        );
+        
+        await service.placeOrder({ total: 100 } as Order);
+        
+        expect(mockPayment.charge).toHaveBeenCalledWith(100);
+        expect(mockEmail.sendConfirmation).toHaveBeenCalled();
+    });
+});
 ```
 
 ## Best Practices
@@ -719,6 +1031,18 @@ try {
 
 5. **Leverage generics for reusability**
 
+6. **Depend on abstractions (interfaces), not concrete implementations**
+
+7. **Write tests alongside code** - easier to maintain design patterns
+
+8. **Use dependency injection** - makes code testable and flexible
+
 ## Summary
 
-TypeScript adds **type safety** to JavaScript, catching errors during development instead of at runtime. Use it for scalable, maintainable applications with confidence!
+TypeScript adds **type safety** to JavaScript, catching errors during development instead of at runtime. Combine with design patterns for **scalable, maintainable applications**!
+
+Professional applications use:
+- **Dependency Injection** - flexible, testable code
+- **Repository Pattern** - clean data access layer
+- **Observer Pattern** - reactive updates
+- **Design Patterns** - proven solutions to common problems

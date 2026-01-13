@@ -610,6 +610,180 @@ echo "All commands succeeded!"
 
 ---
 
+## 11. Arrays (Collections of Data)
+
+### Creating Arrays
+```bash
+# Index arrays (0-based)
+colors=(red blue green)
+numbers=(1 2 3 4 5)
+mixed=(apple 42 "hello world")
+
+# From separate values
+fruits=(
+    "apple"
+    "banana"
+    "cherry"
+)
+
+# Empty array
+empty_array=()
+```
+
+### Accessing Array Elements
+```bash
+colors=(red blue green yellow)
+
+# First element (index 0)
+echo ${colors[0]}          # red
+
+# Specific element
+echo ${colors[2]}          # green
+
+# All elements
+echo ${colors[@]}          # red blue green yellow
+
+# Number of elements
+echo ${#colors[@]}         # 4
+
+# Element length
+echo ${#colors[0]}         # 3 (length of "red")
+```
+
+### Modifying Arrays
+```bash
+colors=(red blue green)
+
+# Add element at end
+colors+=(yellow)           # colors=(red blue green yellow)
+
+# Change element
+colors[1]=orange           # colors=(red orange green)
+
+# Remove element (set to empty)
+unset colors[1]            # colors=(red green)
+
+# Remove entire array
+unset colors
+```
+
+### Looping Through Arrays
+```bash
+fruits=(apple banana cherry)
+
+# Loop with for...in
+for fruit in "${fruits[@]}"
+do
+    echo "I like $fruit"
+done
+
+# Loop with index
+for i in "${!fruits[@]}"
+do
+    echo "Index $i: ${fruits[$i]}"
+done
+
+# While loop with index
+i=0
+while [ $i -lt ${#fruits[@]} ]
+do
+    echo "${fruits[$i]}"
+    i=$((i + 1))
+done
+```
+
+### Slicing Arrays
+```bash
+colors=(red blue green yellow purple)
+
+# All elements
+echo ${colors[@]}          # red blue green yellow purple
+
+# From index 1 to end
+echo ${colors[@]:1}        # blue green yellow purple
+
+# From index 1, 2 elements
+echo ${colors[@]:1:2}      # blue green
+
+# Last element (if 5 elements, index 4)
+echo ${colors[-1]}         # In bash 4.3+: purple
+```
+
+### Associative Arrays (Dictionaries)
+```bash
+# Declare as associative
+declare -A person
+
+# Add elements
+person[name]="Alice"
+person[age]="25"
+person[city]="New York"
+
+# Access by key
+echo ${person[name]}       # Alice
+
+# All keys
+echo ${!person[@]}         # name age city
+
+# All values
+echo ${person[@]}          # Alice 25 New York
+
+# Iterate
+for key in "${!person[@]}"
+do
+    echo "$key: ${person[$key]}"
+done
+
+# Output:
+# name: Alice
+# age: 25
+# city: New York
+```
+
+### Practical Array Examples
+```bash
+#!/bin/bash
+
+# Get file names in directory
+files=($(ls))
+echo "First file: ${files[0]}"
+
+# Process multiple arguments as array
+process_files() {
+    local files=("$@")
+    for file in "${files[@]}"
+    do
+        echo "Processing: $file"
+    done
+}
+
+# Pass multiple arguments
+process_files file1.txt file2.txt file3.txt
+
+# Build array from command output
+lines=()
+while IFS= read -r line
+do
+    lines+=("$line")
+done < <(cat file.txt)
+
+# Filter array
+numbers=(1 2 3 4 5 6 7 8 9 10)
+even_numbers=()
+for num in "${numbers[@]}"
+do
+    if [ $((num % 2)) -eq 0 ]
+    then
+        even_numbers+=($num)
+    fi
+done
+echo "Even: ${even_numbers[@]}"  # 2 4 6 8 10
+```
+
+**Why arrays matter?** Process multiple items efficiently without repeating code.
+
+---
+
 ## Quick Reference
 
 ```bash
@@ -642,6 +816,11 @@ arr=(1 2 3)
 ${arr[0]}
 ${arr[@]}
 
+# Associative Arrays
+declare -A map
+map[key]="value"
+${map[key]}
+
 # Strings
 ${#string}
 ${string:0:5}
@@ -664,5 +843,6 @@ echo text > file
 | Spaces around `=` | Use `var=value` not `var = value` |
 | Unquoted variables | Always quote: `"$var"` |
 | Wrong comparison for strings | Use `=` for strings, `-eq` for numbers |
+| Array without quotes | Use `"${arr[@]}"` not `${arr[@]}` in loops |
 
 Bash is powerful! Keep learning! 🚀
