@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ScrollRestoration from "./scroll-restoration";
 
 export const metadata: Metadata = {
   title: "Cheatsheets - Your Coding Companion",
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-primary text-white">
+        <ScrollRestoration />
         <div className="min-h-screen flex flex-col">
           <header className="bg-secondary shadow">
             <div className="max-w-7xl mx-auto px-6 py-6">

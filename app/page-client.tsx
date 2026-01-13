@@ -58,7 +58,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
           {/* Premium badge */}
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500/10 via-transparent to-indigo-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-cyan-300 text-sm font-semibold tracking-wide">Learn 100+ Languages</span>
+            <span className="text-cyan-300 text-sm font-semibold tracking-wide">Learn Major Languages</span>
           </div>
           
           <h1 className="text-7xl md:text-8xl font-black leading-tight">
