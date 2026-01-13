@@ -1011,11 +1011,26 @@ describe("OrderService", () => {
 | Using `any` type excessively | Use `unknown` or specific types instead |
 | Not enabling strict mode | Enable `"strict": true` in tsconfig.json |
 | Type assertions with `as` everywhere | Use proper typing instead of `.as any` |
-| Forgetting `undefined` in union types | Function may return undefined, type it: `T \| undefined` |
+| Forgetting `undefined` in union types | Function may return undefined, type it: `T | undefined` |
 | Confusing interfaces with types | Both work, but prefer interfaces for objects |
 | Not using generics for reusability | Use `<T>` to make functions work with multiple types |
 | Assuming null and undefined are same | They're different: `null` is intentional, `undefined` is not |
 | Not updating dependencies | Keep TypeScript version current for better features |
+
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Type annotation | `let name: string = "Alice";` |
+| Function type | `function add(a: number, b: number): number { }` |
+| Array type | `let arr: number[] = [1, 2, 3];` |
+| Union type | `let x: string | number = "hello";` |
+| Interface | `interface Person { name: string; age: number; }` |
+| Type alias | `type ID = string | number;` |
+| Enum | `enum Status { Active = "active", Inactive = "inactive" }` |
+| Generic | `function identity<T>(x: T): T { return x; }` |
+| Optional | `let x?: string;` |
+| Class | `class Person { constructor(public name: string) {} }` |
 
 ## Best Practices
 

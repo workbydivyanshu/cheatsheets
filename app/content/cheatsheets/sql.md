@@ -618,6 +618,21 @@ SELECT * FROM orders JOIN users;  -- Cartesian product!
 SELECT * FROM orders JOIN users ON orders.user_id = users.user_id;
 ```
 
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Select | `SELECT * FROM users;` |
+| Where | `WHERE age > 18` |
+| Order by | `ORDER BY name ASC;` |
+| Limit | `LIMIT 10;` |
+| Count | `COUNT(*)` |
+| Sum | `SUM(amount)` |
+| Average | `AVG(price)` |
+| Group by | `GROUP BY category` |
+| Inner join | `INNER JOIN users ON ...` |
+| Insert | `INSERT INTO users (name, age) VALUES ('Alice', 25);` |
+
 ## Summary
 
 SQL is **essential for data work**. Master:

@@ -208,6 +208,36 @@ int main() {
 4. **STL containers** instead of raw arrays
 5. **RAII** - Resource Acquisition Is Initialization
 
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Memory leaks with pointers | Use smart pointers: `std::unique_ptr<int>` instead of `new` |
+| Forgetting `#include <iostream>` | Always include needed headers for used functions |
+| Using `using namespace std;` globally | Avoid namespace pollution; use `std::` prefix |
+| Buffer overflow with arrays | Check bounds! Use `std::vector` or `std::array` |
+| Passing by value instead of reference | Use references for large objects: `void func(const MyClass& obj)` |
+| Forgetting `const` on methods | Methods that don't modify should be `const`: `void method() const {}` |
+| Dangling pointers after delete | Set to `nullptr` after delete: `delete ptr; ptr = nullptr;` |
+| String concatenation issues | Use `std::string` not C-style `char*`: `s1 + s2` |
+
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Variable | `int x = 10;` |
+| Pointer | `int* ptr = &x;` |
+| Reference | `int& ref = x;` |
+| Array | `int arr[5];` |
+| Vector | `std::vector<int> v;` |
+| String | `std::string s = "hello";` |
+| Function | `int add(int a, int b) { return a + b; }` |
+| Class | `class MyClass { public: int x; };` |
+| Constructor | `MyClass() { }` |
+| If statement | `if (x > 5) { }` |
+| For loop | `for (int i = 0; i < 10; i++) { }` |
+| While loop | `while (x < 10) { x++; }` |
+
 ## Summary
 
 C++ combines **performance of C** with **object-oriented features**. Used for games, systems software, and high-speed applications.

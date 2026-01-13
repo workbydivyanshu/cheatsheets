@@ -560,6 +560,21 @@ text.gsub(/\d+/, "XXX")     # "Hello XXX World"
 | Confusing Proc vs Lambda | Lambdas are stricter (argument checking, return behavior) |
 | Not using .times or .each | Traditional `for` loops are not idiomatic Ruby |
 
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Variable | `name = "Alice"` |
+| Array | `arr = [1, 2, 3]` |
+| Hash | `data = { name: "Alice", age: 25 }` |
+| String | `s = "Hello"` |
+| Symbol | `:ruby` |
+| Range | `1..10` |
+| If statement | `if x > 5 ... end` |
+| Case statement | `case x when 1 ... end` |
+| Loop | `arr.each { \|item\| puts item }` |
+| Function | `def add(a, b) a + b end` |
+
 ## Best Practices
 
 1. **Use snake_case for variables and methods**

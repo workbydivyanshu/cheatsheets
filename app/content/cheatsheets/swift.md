@@ -505,6 +505,34 @@ print(calc.divide(10, 5) ?? "Error")  // 2
 4. **Use type inference** when obvious
 5. **Prefer immutability** (let over var)
 
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Using ! (force unwrap) carelessly | Use optional binding: `if let x = optional { }` |
+| Forcing with as? and force-casting | Use `as?` for safe casting: `let str = obj as? String` |
+| Forgetting self in closures | Use `[weak self]` to avoid retain cycles |
+| Using class when struct fits | Default to `struct`, use `class` only for reference semantics |
+| Not using guard for early exit | Use `guard let x = optional else { return }` |
+| Comparing optionals with == | Use pattern matching: `if case .some(let v) = optional` |
+| Mutating value types in methods | Mark method `mutating`: `mutating func add()` |
+| Not handling all switch cases | Swift enforces exhaustiveness - use `@unknown default` if needed |
+
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Variable | `let x = 10` |
+| Mutable | `var x = 10` |
+| Optional | `let x: Int? = nil` |
+| Array | `let arr = [1, 2, 3]` |
+| Dictionary | `let dict = ["a": 1, "b": 2]` |
+| Function | `func add(_ a: Int, _ b: Int) -> Int { a + b }` |
+| Struct | `struct Person { let name: String }` |
+| Class | `class MyClass { init() { } }` |
+| Optional binding | `if let x = optional { }` |
+| Guard | `guard let x = optional else { return }` |
+
 ## Summary
 
 Swift is **modern, safe, and fast**. Perfect for Apple ecosystem.

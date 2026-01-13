@@ -372,6 +372,36 @@ async void PrintData() {
 
 5. **Use LINQ for collections**
 
+## Common Mistakes
+
+| ❌ Mistake | ✅ Fix |
+|-----------|--------|
+| Forgetting to await async calls | Use `await` on async methods: `await Task.Delay(100);` |
+| Null reference exceptions | Use null-coalescing: `var x = obj?.Property ?? defaultValue;` |
+| Not disposing resources | Use `using` statements: `using (var file = File.Open(...)) { }` |
+| String concatenation in loops | Use `StringBuilder` for performance: `sb.Append(s)` |
+| Case-sensitive string comparisons | Use `StringComparison.OrdinalIgnoreCase` for case-insensitive |
+| Modifying collection while iterating | Copy first: `foreach (var item in list.ToList()) { list.Remove(item); }` |
+| Forgetting to use LINQ | Use LINQ instead of loops: `list.Where(x => x > 5)` |
+| Not using const for constants | Use `const` for compile-time constants: `const int MAX = 100;` |
+
+## Quick Reference
+
+| Concept | Example |
+|---------|---------|
+| Variable | `int x = 10;` |
+| String | `string s = "hello";` |
+| List | `List<int> list = new List<int>();` |
+| Dictionary | `Dictionary<string, int> dict = new();` |
+| Function | `int Add(int a, int b) => a + b;` |
+| Class | `class MyClass { }` |
+| Property | `public int Age { get; set; }` |
+| If statement | `if (x > 5) { }` |
+| For loop | `for (int i = 0; i < 10; i++) { }` |
+| Foreach | `foreach (var item in list) { }` |
+| Try-catch | `try { } catch (Exception e) { }` |
+| Async/await | `async Task<int> GetData() { return await SomeAsync(); }` |
+
 ## Summary
 
 C# is **modern, clean, and powerful**. Perfect for:
