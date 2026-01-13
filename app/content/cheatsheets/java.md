@@ -630,6 +630,210 @@ public class BankAccount {
 }
 ```
 
+## Streams & Functional Programming (Java 8+)
+
+### What are Streams?
+**Streams** are pipelines for processing data. Unlike collections (which store data), streams process data without storing it all in memory. They enable functional programming style in Java.
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Stream: filter, transform, collect results
+List<Integer> evenNumbers = numbers.stream()
+    .filter(n -> n % 2 == 0)     // Keep only evens
+    .collect(Collectors.toList());
+// Result: [2, 4]
+```
+
+**Why streams?** Cleaner, more expressive code. Process large datasets efficiently.
+
+### Lambda Expressions
+
+Lambdas are **anonymous functions** - shorthand for small functions.
+
+```java
+// Traditional way (verbose)
+numbers.forEach(new Consumer<Integer>() {
+    @Override
+    public void accept(Integer n) {
+        System.out.println(n);
+    }
+});
+
+// Lambda way (clean)
+numbers.forEach(n -> System.out.println(n));
+
+// Lambda syntax
+(parameters) -> expression
+
+// Examples
+x -> x * 2              // Single parameter
+(x, y) -> x + y         // Multiple parameters
+(x, y) -> { return x + y; }  // Multiple statements
+() -> "Hello"           // No parameters
+```
+
+### Common Stream Operations
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// Filter - keep elements matching condition
+List<Integer> evens = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList());
+// Result: [2, 4, 6, 8, 10]
+
+// Map - transform each element
+List<Integer> doubled = numbers.stream()
+    .map(n -> n * 2)
+    .collect(Collectors.toList());
+// Result: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+// Reduce - combine all to single value
+int sum = numbers.stream()
+    .reduce(0, (a, b) -> a + b);
+// Result: 55
+
+// Count
+long count = numbers.stream()
+    .filter(n -> n > 5)
+    .count();
+// Result: 5
+
+// Min & Max
+int min = numbers.stream()
+    .min(Integer::compare)
+    .get();
+// Result: 1
+
+// Any match
+boolean hasEven = numbers.stream()
+    .anyMatch(n -> n % 2 == 0);
+// Result: true
+
+// All match
+boolean allPositive = numbers.stream()
+    .allMatch(n -> n > 0);
+// Result: true
+```
+
+### Chaining Operations (Pipeline)
+
+```java
+List<String> fruits = Arrays.asList("apple", "banana", "apricot", "berry", "cherry");
+
+// Chain multiple operations
+List<String> result = fruits.stream()
+    .filter(f -> f.startsWith("a"))           // Keep fruits starting with 'a'
+    .map(String::toUpperCase)                  // Convert to uppercase
+    .sorted()                                  // Sort alphabetically
+    .collect(Collectors.toList());
+// Result: ["APPLE", "APRICOT"]
+```
+
+### Collectors - Collecting Results
+
+```java
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+// Collect to List
+List<String> list = names.stream()
+    .collect(Collectors.toList());
+
+// Collect to Set (unique)
+Set<String> set = names.stream()
+    .collect(Collectors.toSet());
+
+// Join to string
+String joined = names.stream()
+    .collect(Collectors.joining(", "));
+// Result: "Alice, Bob, Charlie, David"
+
+// Group by length
+Map<Integer, List<String>> grouped = names.stream()
+    .collect(Collectors.groupingBy(String::length));
+// Result: {3: ["Bob"], 5: ["Alice", "David"], 7: ["Charlie"]}
+
+// Count occurrences
+Map<Character, Long> charCount = "hello".chars()
+    .boxed()
+    .collect(Collectors.groupingBy(
+        c -> (char) c.intValue(),
+        Collectors.counting()
+    ));
+// Result: {h: 1, e: 1, l: 2, o: 1}
+```
+
+### Real-World Example
+
+```java
+List<Person> people = Arrays.asList(
+    new Person("Alice", 25),
+    new Person("Bob", 30),
+    new Person("Charlie", 28),
+    new Person("David", 35)
+);
+
+// Find average age of people over 26
+double avgAge = people.stream()
+    .filter(p -> p.getAge() > 26)
+    .mapToInt(Person::getAge)
+    .average()
+    .orElse(0);
+// Result: 31.0 (average of 28, 30, 35)
+
+// Get names sorted by age
+List<String> sortedNames = people.stream()
+    .sorted((p1, p2) -> Integer.compare(p1.getAge(), p2.getAge()))
+    .map(Person::getName)
+    .collect(Collectors.toList());
+// Result: ["Alice", "Charlie", "Bob", "David"]
+```
+
+### Functional Interfaces (Lambdas Target)
+
+| Interface | Method | Use |
+|-----------|--------|-----|
+| `Consumer<T>` | `void accept(T)` | Do something with value |
+| `Function<T, R>` | `R apply(T)` | Transform value |
+| `Predicate<T>` | `boolean test(T)` | Check condition |
+| `Supplier<T>` | `T get()` | Provide value |
+
+```java
+// Consumer - do something
+Consumer<String> print = s -> System.out.println(s);
+print.accept("Hello");  // Prints: Hello
+
+// Function - transform
+Function<String, Integer> length = String::length;
+int len = length.apply("Hello");  // 5
+
+// Predicate - check condition
+Predicate<Integer> isEven = n -> n % 2 == 0;
+boolean result = isEven.test(4);  // true
+
+// Supplier - provide value
+Supplier<String> greeting = () -> "Hello";
+String msg = greeting.get();  // "Hello"
+```
+
+**Method References** - shorthand for lambdas:
+
+```java
+// Lambda
+numbers.forEach(n -> System.out.println(n));
+
+// Method reference (cleaner)
+numbers.forEach(System.out::println);
+
+// Other examples
+String::toUpperCase              // s -> s.toUpperCase()
+Integer::parseInt               // s -> Integer.parseInt(s)
+List::add                        // (list, item) -> list.add(item)
+Person::new                      // () -> new Person()
+```
+
 ## Best Practices
 
 1. **Use meaningful names:**

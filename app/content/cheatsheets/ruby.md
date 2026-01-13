@@ -235,6 +235,198 @@ end
 sum(1, 2, 3, 4)  # 10
 ```
 
+## Blocks, Procs, and Lambdas - Ruby's Functional Side
+
+### What are Blocks?
+**Blocks** are chunks of code you pass to methods. They're not objects, but they're fundamental to Ruby. Use `{ }` for one-liners or `do...end` for multi-line.
+
+```ruby
+# Block with braces (single-line)
+[1, 2, 3].each { |num| puts num }
+
+# Block with do...end (multi-line)
+[1, 2, 3].each do |num|
+    puts num
+end
+
+# Yielding to blocks in custom methods
+def greet
+    puts "Starting..."
+    yield
+    puts "Finished!"
+end
+
+greet { puts "Hello in the middle!" }
+# Output:
+# Starting...
+# Hello in the middle!
+# Finished!
+
+# Check if block was given
+def maybe_greet
+    if block_given?
+        yield
+    else
+        puts "No block given"
+    end
+end
+
+maybe_greet { puts "Block!" }      # Block!
+maybe_greet                         # No block given
+```
+
+**Why blocks matter?** They make Ruby code expressive and elegant. Used with `each`, `map`, `select`, `reduce`, etc.
+
+### Block Parameters
+
+```ruby
+# Blocks receive parameters
+numbers = [1, 2, 3, 4, 5]
+
+# Each element passed to block
+numbers.each { |num| puts num }
+
+# Multiple parameters
+{"a" => 1, "b" => 2}.each { |key, value| puts "#{key}: #{value}" }
+
+# Ignoring parameters
+numbers.each { |_| puts "Item" }  # Using _ for unused param
+
+# Destructuring in blocks
+[[1, 2], [3, 4]].each { |a, b| puts "#{a}, #{b}" }
+# Output:
+# 1, 2
+# 3, 4
+```
+
+### Common Block Methods
+
+```ruby
+# Map - transform each element
+[1, 2, 3].map { |x| x * 2 }        # [2, 4, 6]
+
+# Select - filter elements
+[1, 2, 3, 4, 5].select { |x| x > 2 }  # [3, 4, 5]
+
+# Reject - opposite of select
+[1, 2, 3, 4, 5].reject { |x| x > 2 }  # [1, 2]
+
+# Reduce - combine all into one
+[1, 2, 3, 4].reduce(0) { |sum, x| sum + x }  # 10
+
+# Each_with_object - reduce with cleaner syntax
+[1, 2, 3].each_with_object([]) { |num, arr| arr << num * 2 }  # [2, 4, 6]
+
+# Sort with block
+students = [["Alice", 85], ["Bob", 75], ["Charlie", 90]]
+students.sort_by { |name, score| score }
+# [["Bob", 75], ["Alice", 85], ["Charlie", 90]]
+
+# Find - return first matching element
+[1, 2, 3, 4, 5].find { |x| x > 3 }  # 4
+
+# Any? / All? - boolean checks
+[1, 2, 3, 4].any? { |x| x > 3 }     # true
+[1, 2, 3, 4].all? { |x| x > 0 }     # true
+```
+
+### Procs - Reusable Blocks
+
+**Procs** are objects that wrap blocks. Unlike blocks, they can be stored in variables and passed around.
+
+```ruby
+# Creating a Proc
+square = Proc.new { |x| x ** 2 }
+puts square.call(5)  # 25
+
+# Alternative syntax
+add = proc { |a, b| a + b }
+puts add.call(3, 4)  # 7
+
+# Passing Procs to methods
+def apply_twice(proc, value)
+    proc.call(proc.call(value))
+end
+
+double = Proc.new { |x| x * 2 }
+puts apply_twice(double, 5)  # 20 (5 * 2 = 10, then 10 * 2 = 20)
+
+# Array of Procs
+operations = [
+    Proc.new { |x| x + 1 },
+    Proc.new { |x| x * 2 },
+    Proc.new { |x| x ** 2 }
+]
+
+value = 5
+operations.each { |op| value = op.call(value) }
+puts value  # ((5 + 1) * 2) ^ 2 = 144
+```
+
+### Lambdas - Strict Procs
+
+**Lambdas** are like Procs but with stricter argument checking and different return behavior.
+
+```ruby
+# Creating a Lambda
+square = lambda { |x| x ** 2 }
+puts square.call(5)  # 25
+
+# Alternative syntax (arrow)
+add = ->(a, b) { a + b }
+puts add.call(3, 4)  # 7
+
+# Lambdas check argument count strictly
+strict = lambda { |x, y| x + y }
+strict.call(1, 2)      # Works
+# strict.call(1)       # Error - wrong number of arguments!
+
+# Procs are lenient
+lenient = Proc.new { |x, y| x + y }
+lenient.call(1, 2)     # Works
+lenient.call(1)        # Works, but y is nil
+
+# Return behavior difference
+def test_proc
+    p = Proc.new { return "From Proc" }
+    p.call
+    return "After Proc"
+end
+
+def test_lambda
+    l = lambda { return "From Lambda" }
+    l.call
+    return "After Lambda"
+end
+
+puts test_proc     # "From Proc" (exits method!)
+puts test_lambda   # "After Lambda" (normal return)
+```
+
+### When to Use What?
+
+| Type | Use Case |
+|------|----------|
+| **Block** | Simple operations with `each`, `map`, `select` |
+| **Proc** | Store for later, pass multiple times, flexible args |
+| **Lambda** | Need strict checking, callback functions, functional style |
+
+```ruby
+# Practical example: callbacks
+class Button
+    def initialize(&action)  # &action converts block to Proc
+        @action = action
+    end
+    
+    def click
+        @action.call
+    end
+end
+
+button = Button.new { puts "Button clicked!" }
+button.click  # "Button clicked!"
+```
+
 ## Classes & Objects
 
 ```ruby

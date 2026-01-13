@@ -550,6 +550,308 @@ sorted_by_score = sorted(students, key=lambda x: x[1])
 
 **Why lambda?** Quick, throwaway functions for simple operations.
 
+## Object-Oriented Programming (OOP)
+
+### What is OOP?
+**OOP** organizes code into **objects** that contain data (variables) and behavior (functions). Think of a class as a blueprint for creating objects.
+
+```python
+# Class - blueprint for objects
+class Dog:
+    # Constructor - runs when creating new object
+    def __init__(self, name, age):
+        # Instance variables - unique to each object
+        self.name = name
+        self.age = age
+    
+    # Method - function inside class
+    def bark(self):
+        return f"{self.name} says woof!"
+    
+    def birthday(self):
+        self.age += 1
+        return f"{self.name} is now {self.age}"
+
+# Creating objects (instances)
+dog1 = Dog("Rex", 3)
+dog2 = Dog("Buddy", 5)
+
+# Accessing variables
+print(dog1.name)       # Rex
+print(dog2.age)        # 5
+
+# Calling methods
+print(dog1.bark())     # Rex says woof!
+print(dog2.birthday()) # Buddy is now 6
+```
+
+**Why this matters:** Objects group related data and behavior together, making code organized and reusable.
+
+### Instance vs Class Variables
+```python
+class Car:
+    # Class variable - shared by all instances
+    total_cars = 0
+    
+    def __init__(self, brand, model):
+        # Instance variables - unique to each car
+        self.brand = brand
+        self.model = model
+        Car.total_cars += 1
+    
+    def info(self):
+        return f"{self.brand} {self.model}"
+
+car1 = Car("Toyota", "Camry")
+car2 = Car("Honda", "Civic")
+
+print(car1.brand)      # Toyota
+print(Car.total_cars)  # 2 - shared by all cars
+
+car1.brand = "Ford"    # Changes only car1
+Car.total_cars = 10    # Changes for everyone
+```
+
+### Inheritance - Code Reuse
+```python
+# Parent class (base class)
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        return f"{self.name} makes a sound"
+
+# Child class (inherits from Animal)
+class Dog(Animal):
+    def speak(self):  # Override parent's method
+        return f"{self.name} says woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return f"{self.name} says meow!"
+
+# Using inheritance
+dog = Dog("Rex")
+cat = Cat("Whiskers")
+
+print(dog.speak())  # Rex says woof!
+print(cat.speak())  # Whiskers says meow!
+
+# Calling parent method with super()
+class Puppy(Dog):
+    def speak(self):
+        parent_sound = super().speak()  # Calls Dog's speak
+        return f"{parent_sound} (puppy version!)"
+
+puppy = Puppy("Scout")
+print(puppy.speak())  # Scout says woof! (puppy version!)
+```
+
+**Why inheritance?** Avoid repeating code, create organized hierarchies.
+
+### Special Methods (Dunder Methods)
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    # String representation
+    def __str__(self):
+        return f"{self.name} (age {self.age})"
+    
+    # Developer-friendly representation
+    def __repr__(self):
+        return f"Person('{self.name}', {self.age})"
+    
+    # Equality comparison
+    def __eq__(self, other):
+        return self.name == other.name and self.age == other.age
+    
+    # Length
+    def __len__(self):
+        return self.age
+    
+    # Less than comparison
+    def __lt__(self, other):
+        return self.age < other.age
+
+alice = Person("Alice", 25)
+bob = Person("Bob", 30)
+
+print(alice)           # Alice (age 25)
+print(alice == bob)    # False
+print(len(alice))      # 25
+print(alice < bob)     # True (Alice is younger)
+```
+
+### Properties - Controlled Access
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self._balance = balance  # _ means "internal"
+    
+    # Getter - read property
+    @property
+    def balance(self):
+        return self._balance
+    
+    # Setter - write property with validation
+    @balance.setter
+    def balance(self, amount):
+        if amount < 0:
+            raise ValueError("Balance cannot be negative")
+        self._balance = amount
+    
+    def deposit(self, amount):
+        self.balance += amount  # Uses setter
+
+account = BankAccount(1000)
+print(account.balance)  # 1000 (getter)
+account.balance = 1500  # (setter with validation)
+# account.balance = -100  # Error! ValueError
+```
+
+**Why properties?** Add validation and logic while keeping clean syntax.
+
+## Decorators
+
+### What are Decorators?
+**Decorators** are functions that modify other functions or classes. They "wrap" a function to change or extend its behavior.
+
+```python
+# Simple decorator
+def greeting_decorator(func):
+    def wrapper():
+        print("Before function")
+        func()
+        print("After function")
+    return wrapper
+
+# Without decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()  # Just "Hello!"
+
+# With decorator
+@greeting_decorator
+def say_hello_decorated():
+    print("Hello!")
+
+say_hello_decorated()
+# Output:
+# Before function
+# Hello!
+# After function
+```
+
+**Why decorators?** Add functionality without changing original code (logging, timing, authentication, etc.)
+
+### Decorators with Arguments
+```python
+def my_decorator(func):
+    def wrapper(*args, **kwargs):  # Accept any arguments
+        print(f"Calling {func.__name__}")
+        result = func(*args, **kwargs)  # Pass arguments through
+        print(f"Finished {func.__name__}")
+        return result
+    return wrapper
+
+@my_decorator
+def add(a, b):
+    return a + b
+
+result = add(5, 3)
+# Output:
+# Calling add
+# Finished add
+print(result)  # 8
+```
+
+### Built-in Decorators
+
+```python
+# @property - already covered above
+
+# @staticmethod - doesn't need self or cls
+class Math:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+print(Math.add(5, 3))  # 8 - no instance needed
+
+# @classmethod - receives class as first argument
+class Counter:
+    count = 0
+    
+    @classmethod
+    def increment(cls):
+        cls.count += 1
+
+Counter.increment()
+print(Counter.count)  # 1
+
+# @classmethod - creating alternative constructors
+class Date:
+    def __init__(self, day, month, year):
+        self.day = day
+        self.month = month
+        self.year = year
+    
+    @classmethod
+    def from_string(cls, date_string):
+        day, month, year = date_string.split("-")
+        return cls(int(day), int(month), int(year))
+
+date = Date.from_string("25-12-2024")
+print(f"{date.day}/{date.month}/{date.year}")  # 25/12/2024
+```
+
+### Practical Decorator Examples
+
+```python
+import time
+
+# Timing decorator
+def timer(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"{func.__name__} took {end - start:.4f} seconds")
+        return result
+    return wrapper
+
+@timer
+def slow_function():
+    time.sleep(1)
+    print("Done")
+
+slow_function()
+# Output:
+# Done
+# slow_function took 1.0003 seconds
+
+# Logging decorator
+def log_calls(func):
+    def wrapper(*args, **kwargs):
+        print(f"Called {func.__name__} with args={args}, kwargs={kwargs}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_calls
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+print(greet("Alice", greeting="Hi"))
+# Output:
+# Called greet with args=('Alice',), kwargs={'greeting': 'Hi'}
+# Hi, Alice!
+```
+
 ## Input & Output
 
 ### Getting User Input

@@ -521,7 +521,174 @@ function getUserInfo(id) {
 
 ---
 
-## 9. Working with Events (User Interactions)
+## 9. Prototypes & Inheritance - JavaScript's Object Model
+
+### What are Prototypes?
+Every JavaScript object has a **prototype** - a template object it inherits from. This is how JavaScript implements inheritance.
+
+```javascript
+// Simple object
+const person = {
+  name: "Alice",
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+};
+
+console.log(person.greet());  // "Hello, I'm Alice"
+
+// Prototypes let us add methods to all objects of a type
+Object.getPrototypeOf(person);  // See the prototype
+```
+
+**Why prototypes matter?** They're how JavaScript shares code between objects without duplication.
+
+### Constructor Functions & the New Keyword
+
+```javascript
+// Constructor function (capitalized by convention)
+function Dog(name, breed) {
+  this.name = name;
+  this.breed = breed;
+}
+
+// Add method to prototype
+Dog.prototype.bark = function() {
+  return `${this.name} says woof!`;
+};
+
+// Create objects with new
+const dog1 = new Dog("Rex", "Golden Retriever");
+const dog2 = new Dog("Buddy", "German Shepherd");
+
+console.log(dog1.bark());  // "Rex says woof!"
+console.log(dog2.bark());  // "Buddy says woof!"
+
+// Both dogs share the same bark method (memory efficient)
+console.log(dog1.bark === dog2.bark);  // true
+```
+
+**Why use constructor functions?** Create multiple objects with the same structure and shared methods.
+
+### Prototype Chain
+
+```javascript
+// Objects inherit from their prototype
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.speak = function() {
+  return `${this.name} makes a sound`;
+};
+
+function Cat(name, color) {
+  Animal.call(this, name);  // Call parent constructor
+  this.color = color;
+}
+
+// Set up inheritance - Cat's prototype is an Animal
+Cat.prototype = Object.create(Animal.prototype);
+Cat.prototype.constructor = Cat;  // Restore constructor
+
+Cat.prototype.speak = function() {
+  return `${this.name} says meow!`;
+};
+
+const cat = new Cat("Whiskers", "orange");
+console.log(cat.speak());    // "Whiskers says meow!"
+console.log(cat.name);       // "Whiskers"
+console.log(cat.color);      // "orange"
+
+// The chain: cat → Cat.prototype → Animal.prototype → Object.prototype
+```
+
+### ES6 Classes (Modern Way)
+
+```javascript
+// Modern classes are syntactic sugar over prototypes
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    return `${this.name} makes a sound`;
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name);  // Call parent constructor
+    this.breed = breed;
+  }
+
+  speak() {
+    return `${this.name} says woof!`;
+  }
+}
+
+const dog = new Dog("Rex", "Lab");
+console.log(dog.speak());  // "Rex says woof!"
+```
+
+**Under the hood:** Classes are just syntactic sugar for prototypes. They do the same thing but look cleaner.
+
+### This Keyword & Context
+
+```javascript
+const person = {
+  name: "Alice",
+  age: 25,
+  
+  // this refers to the object
+  greet() {
+    console.log(`Hello, I'm ${this.name}`);
+  }
+};
+
+person.greet();  // "Hello, I'm Alice" - this = person
+
+// But be careful!
+const greetFunction = person.greet;
+greetFunction();  // "Hello, I'm undefined" - this is lost!
+
+// Fix with bind
+const boundGreet = person.greet.bind(person);
+boundGreet();  // "Hello, I'm Alice" - this is bound
+
+// Arrow functions don't have their own this
+const person2 = {
+  name: "Bob",
+  greet: () => {
+    console.log(`Hello, I'm ${this.name}`);  // this from outer scope
+  }
+};
+```
+
+**Why this matters?** Understanding `this` prevents bugs with callbacks and event handlers.
+
+### Checking Instance Type
+
+```javascript
+class Dog {
+  bark() { return "woof"; }
+}
+
+const dog = new Dog();
+
+// Check if object is instance of class
+console.log(dog instanceof Dog);     // true
+console.log(dog instanceof Animal);  // false
+
+// Check if method exists
+console.log("bark" in dog);          // true
+console.log(dog.hasOwnProperty("bark"));  // false (it's in prototype)
+```
+
+---
+
+## 10. Working with Events (User Interactions)
 
 ### Listening for Clicks and Inputs
 
