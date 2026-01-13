@@ -357,34 +357,6 @@ tasks.register('hello') {
 }
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Mixing Java and Groovy syntax | Groovy accepts Java, but use `def`, GStrings, closures |
-| Forgetting parentheses in dynamic calls | `println "Hi"` works, but be consistent with `()` |
-| String concatenation vs interpolation | Use `"Value: $var"` not `"Value: " + var` |
-| Lists are 0-indexed | Remember: `list[0]` is first element |
-| Nulls in operations | Use `?:` Elvis operator to provide defaults |
-| Not using closures for iteration | Use `.each {}` instead of for loops |
-| Forgetting `def` keyword | Use `def` for dynamic typing: `def x = 10` |
-| Case-sensitive method names | `println` not `Println`, `toUpperCase()` not `toupper()` |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `def x = 10` |
-| List | `[1, 2, 3]` |
-| Map | `[name: "Alice", age: 25]` |
-| String interp | `"Hello, $name"` |
-| Function | `def add(a, b) { a + b }` |
-| Closure | `{ x -> x * 2 }` |
-| For loop | `for (i in 0..5) { }` |
-| Each | `items.each { item -> }` |
-| Collect | `list.collect { x -> x * 2 }` |
-| Filter | `list.findAll { x -> x > 5 }` |
-
 ## Summary
 
 Groovy is perfect for **build automation, testing, and scripting on the JVM**. It combines Java's power with Python-like simplicity. Essential for Gradle users and those building DevOps tools.

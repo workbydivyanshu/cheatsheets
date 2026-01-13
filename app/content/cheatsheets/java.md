@@ -834,19 +834,6 @@ List::add                        // (list, item) -> list.add(item)
 Person::new                      // () -> new Person()
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Forgetting `new` keyword | `new ArrayList<>()` not `ArrayList<>()` |
-| Null pointer exceptions | Always check `if (obj != null)` |
-| Array out of bounds | Remember arrays are 0-indexed, `length-1` is last |
-| Modifying collection while iterating | Use Iterator or stream API instead |
-| Not closing resources | Use try-with-resources: `try (Resource r = ...)` |
-| Confusing `==` with `.equals()` | Use `.equals()` to compare String content |
-| Wrong import statements | `import java.util.ArrayList;` not just `import java.util;` |
-| Forgetting `@Override` annotation | Mark overridden methods with `@Override` for clarity |
-
 ## Best Practices
 
 1. **Use meaningful names:**
@@ -872,21 +859,6 @@ Person::new                      // () -> new Person()
        // Handle error
    }  // Automatically closes
    ```
-
-## Quick Reference
-
-| Concept | Syntax |
-|---------|--------|
-| Class | `public class MyClass { }` |
-| Method | `public void myMethod() { }` |
-| If | `if (condition) { }` |
-| Loop | `for (int i = 0; i < n; i++) { }` |
-| Array | `int[] arr = new int[size]` |
-| ArrayList | `ArrayList<Type> list = new ArrayList<>()` |
-| HashMap | `HashMap<Key, Value> map = new HashMap<>()` |
-| Try-catch | `try { } catch (Exception e) { }` |
-
----
 
 ## Summary
 

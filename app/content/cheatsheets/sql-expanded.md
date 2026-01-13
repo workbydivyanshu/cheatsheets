@@ -594,32 +594,6 @@ HAVING MAX(o.order_date) < DATE_SUB(NOW(), INTERVAL 6 MONTH)
 9. **Use meaningful names** - Column and table names should be clear
 10. **Comment complex queries** - Help future you understand the logic
 
-## Common Mistakes
-
-❌ **Mistake:** `DELETE FROM users;` (no WHERE)
-✅ **Fix:** `DELETE FROM users WHERE condition;`
-
-❌ **Mistake:** `SELECT * FROM table WHERE email = NULL;`
-✅ **Fix:** `SELECT * FROM table WHERE email IS NULL;`
-
-❌ **Mistake:** Using aggregate without GROUP BY
-```sql
-SELECT user_id, COUNT(*) FROM orders;  -- Error!
-```
-✅ **Fix:** 
-```sql
-SELECT user_id, COUNT(*) FROM orders GROUP BY user_id;
-```
-
-❌ **Mistake:** Forgetting ON condition in JOIN
-```sql
-SELECT * FROM orders JOIN users;  -- Cartesian product!
-```
-✅ **Fix:**
-```sql
-SELECT * FROM orders JOIN users ON orders.user_id = users.user_id;
-```
-
 ## Summary
 
 SQL is **essential for data work**. Master:

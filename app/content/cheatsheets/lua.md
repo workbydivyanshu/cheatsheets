@@ -339,34 +339,6 @@ local cfg = load_config("app.conf")
 print(cfg.port)  -- Access config values
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Tables are 1-indexed | First element is `table[1]` not `table[0]` |
-| Using `==` for nil | Use `== nil` not `nil?` |
-| Global by default | Use `local` for variables to avoid pollution |
-| `~=` means not equal | Don't use `!=`, use `~=` |
-| String concat with `+` | Use `..` for concatenation, not `+` |
-| Forgetting `:` for methods | Call `obj:method()` not `obj.method()` |
-| Modifying table while iterating | Create new table or use filtering |
-| Confusing `pairs` and `ipairs` | `ipairs` for arrays, `pairs` for dicts |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `local x = 10` |
-| String | `"Hello" .. name` |
-| Table | `local t = {a=1, b=2}` |
-| Array access | `t[1]` (1-indexed) |
-| Function | `function add(a,b) return a+b end` |
-| For loop | `for i=1,10 do print(i) end` |
-| While loop | `while x < 10 do x = x+1 end` |
-| Conditional | `if x > 5 then ... end` |
-| And/Or | `x and y`, `x or y` |
-| File I/O | `io.open(file, "r")` |
-
 ## Summary
 
 Lua shines as an **embeddable, lightweight scripting language**. Perfect for game development, configuration, and embedded systems. Its simplicity and speed make it ideal for extending larger applications.

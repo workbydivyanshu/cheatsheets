@@ -321,34 +321,6 @@ Core Clojure concepts!
 (factorial-fast 5)             ; 120
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Forgetting parens on function calls | `(+ 5 3)` not `+ 5 3` |
-| Using mutation instead of immutability | Create new values: `(conj coll x)` not `.add()` |
-| Confusing quote and unquote | `'(1 2 3)` is quoted, `(list 1 2 3)` evaluates |
-| Using Java methods directly | Import/use them correctly: `(Math/sqrt 9)` |
-| Nth vs get for maps | Use `(:key map)` not `(get map 0)` |
-| Not using seq functions | Use `map`, `filter`, `reduce` instead of loops |
-| String operations need library | Require `clojure.string` for string functions |
-| Performance with lists | Use vectors `[]` for indexed access, not lists |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Define var | `(def x 10)` |
-| Define function | `(defn add [a b] (+ a b))` |
-| Let binding | `(let [x 10] (+ x 5))` |
-| List | `'(1 2 3)` or `(list 1 2 3)` |
-| Vector | `[1 2 3]` |
-| Map | `{:a 1 :b 2}` |
-| Map function | `(map #(* % 2) [1 2 3])` |
-| Filter | `(filter even? [1 2 3 4])` |
-| Reduce | `(reduce + [1 2 3 4])` |
-| Destructure | `(let [{:keys [a b]} map] ...)` |
-
 ## Summary
 
 Clojure is essential for **functional programming, data processing, and concurrent systems**. Its immutable data structures and powerful abstractions make it ideal for building robust applications.

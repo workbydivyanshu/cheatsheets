@@ -297,34 +297,6 @@ m, b = coef
 println("y = $(m)x + $(b)")
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Arrays are 0-indexed | Julia uses 1-based indexing: `arr[1]` is first |
-| Using `*` for element-wise | Use `.` prefix: `arr .* 2` not `arr * 2` |
-| Forgetting `!` for mutations | `push!(arr, x)` modifies, `push(arr, x)` doesn't |
-| Type instability | Avoid reassigning with different types |
-| Missing `using` | Import packages: `using Statistics` |
-| Forgetting newline after statement | Julia lines should end with newline or `;` |
-| Mixing 0 and 1 indexing | Always remember Julia is 1-indexed |
-| Not using vectorization | Use `arr .+ 1` not loops for performance |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `x = 10` |
-| Array | `[1, 2, 3]` |
-| Function | `f(x) = x^2` |
-| For loop | `for i in 1:10 ... end` |
-| Conditional | `if x > 5 ... end` |
-| Broadcast | `arr .* 2` |
-| Sum | `sum(arr)` |
-| Mean | `mean(arr)` |
-| Matrix mult | `A * B` |
-| Types | `x::Int = 10` |
-
 ## Summary
 
 Julia is essential for **scientific computing and data science**. Its speed, simplicity, and vectorization make it ideal for numerical work, machine learning, and research. Perfect for those working with data and mathematics!

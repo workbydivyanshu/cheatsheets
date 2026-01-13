@@ -547,34 +547,6 @@ text.gsub(/\d+/, "XXX")     # "Hello XXX World"
 "a,b,c".split(/,/)          # ["a", "b", "c"]
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Confusing `nil` with `false` | `if obj.nil?` not `if obj == nil` |
-| Using `==` for identity | Use `.eql?` or `.equal?` for object identity |
-| Mutating while iterating | Use `.each_with_index` or `.map` |
-| Forgetting implicit return | Ruby methods return last value automatically |
-| Modifying frozen strings | Use `.dup` to create copy before modifying |
-| Wrong string interpolation | Use double quotes: `"Hello #{name}"` |
-| Confusing Proc vs Lambda | Lambdas are stricter (argument checking, return behavior) |
-| Not using .times or .each | Traditional `for` loops are not idiomatic Ruby |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `name = "Alice"` |
-| Array | `arr = [1, 2, 3]` |
-| Hash | `data = { name: "Alice", age: 25 }` |
-| String | `s = "Hello"` |
-| Symbol | `:ruby` |
-| Range | `1..10` |
-| If statement | `if x > 5 ... end` |
-| Case statement | `case x when 1 ... end` |
-| Loop | `arr.each { \|item\| puts item }` |
-| Function | `def add(a, b) a + b end` |
-
 ## Best Practices
 
 1. **Use snake_case for variables and methods**

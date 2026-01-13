@@ -386,39 +386,6 @@ aria-label="Accessibility label"  <!-- Accessibility -->
 </form>
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Missing `alt` attributes on images | Always provide meaningful alt text for accessibility |
-| Not closing tags properly | Use self-closing tags: `<img>`, `<br>`, `<hr>` |
-| Using wrong semantic tags | Use `<header>`, `<nav>`, `<main>`, `<footer>`, not just `<div>` |
-| Not including viewport meta tag | Always use: `<meta name="viewport" content="width=device-width, initial-scale=1.0">` |
-| Forgetting label association | Link labels: `<label for="id">Text</label><input id="id">` |
-| Missing DOCTYPE | Always start with: `<!DOCTYPE html>` |
-| Using deprecated tags | Don't use: `<marquee>`, `<blink>`, `<center>` |
-| Not validating form inputs | Use `required`, `type="email"`, `pattern` for client-side validation |
-
-## Quick Reference
-
-| Element | Purpose |
-|---------|---------|
-| `<header>` | Page header / site header |
-| `<nav>` | Navigation links |
-| `<main>` | Main content area |
-| `<article>` | Independent content |
-| `<section>` | Grouped content |
-| `<aside>` | Sidebar / supplementary |
-| `<footer>` | Page footer |
-| `<form>` | User input form |
-| `<input>` | Form input field |
-| `<button>` | Clickable button |
-| `<a>` | Hyperlink |
-| `<img>` | Image element |
-| `<table>` | Data table |
-| `<ul>` | Unordered list |
-| `<ol>` | Ordered list |
-
 ## Summary
 
 HTML is the **foundation of all web pages**. Structure content properly using semantic tags, ensure accessibility, and validate forms for user input.

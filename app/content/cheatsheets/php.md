@@ -385,34 +385,6 @@ try {
 ?>
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| SQL injection vulnerabilities | Use prepared statements: `$stmt->bindParam()` |
-| Not escaping user input | Use `htmlspecialchars()`: `echo htmlspecialchars($user_input);` |
-| Leaving `<?php` without closing `?>` | Always close tags or omit `?>` at file end |
-| Magic quotes deprecated | Don't use `addslashes()`, use prepared statements |
-| Global variables with extract() | Avoid `extract()`, manually assign variables |
-| Session fixation vulnerabilities | Always call `session_regenerate_id()` after login |
-| Headers already sent errors | No output before `header()` calls |
-| Not validating form input | Always validate and sanitize: `filter_var($email, FILTER_VALIDATE_EMAIL)` |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Echo/Print | `echo "Hello";` |
-| Variable | `$var = 10;` |
-| Array | `$arr = [1, 2, 3];` |
-| Associative array | `$data = ['name' => 'Alice', 'age' => 25];` |
-| If statement | `if ($x > 5) { }` |
-| For loop | `for ($i = 0; $i < 10; $i++) { }` |
-| Function | `function add($a, $b) { return $a + $b; }` |
-| Class | `class MyClass { public $prop; }` |
-| Database query | `$stmt = $pdo->prepare('SELECT * FROM users WHERE id = ?');` |
-| Session | `$_SESSION['user'] = 'Alice';` |
-
 ## Summary
 
 PHP is **easy to learn** and perfect for web development. Used by WordPress, Facebook, and millions of websites!

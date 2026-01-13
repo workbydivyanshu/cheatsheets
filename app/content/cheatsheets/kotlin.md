@@ -477,34 +477,6 @@ println(result)                     // 15
 5. **Embrace functional programming** - map, filter, reduce
 6. **Use sealed classes** for restricted hierarchies
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Using var instead of val | Prefer `val` for immutability: `val x = 10` not `var x = 10` |
-| Null pointer exceptions | Use null safety: `val x: String?` and check before use |
-| Forgetting safe cast | Use safe cast: `val s = obj as? String` not `as String` |
-| Not using data classes | Use `data class Person(val name: String, val age: Int)` |
-| Ignoring when exhaustiveness | Kotlin enforces all cases in `when` - use `else` |
-| ArrayList instead of mutableList | Use `mutableListOf()` not `ArrayList()` |
-| Not using extension functions | Extend classes: `fun String.isEmail() = contains("@")` |
-| Empty catch blocks | Never ignore exceptions, at least log them |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `val x = 10` |
-| Nullable | `val x: String? = null` |
-| List | `val list = listOf(1, 2, 3)` |
-| Map | `val map = mapOf("a" to 1, "b" to 2)` |
-| Function | `fun add(a: Int, b: Int) = a + b` |
-| Lambda | `val double = { x: Int -> x * 2 }` |
-| Class | `class Person(val name: String, val age: Int)` |
-| If expression | `val max = if (a > b) a else b` |
-| When expression | `when (x) { 1 -> "one" else -> "other" }` |
-| Extension function | `fun String.isEmail() = contains("@")` |
-
 ## Summary
 
 Kotlin is **pragmatic and safe**. Perfect for Android and JVM development.

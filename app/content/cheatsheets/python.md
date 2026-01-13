@@ -1208,29 +1208,6 @@ print(f"Most common word: {most_common} ({word_count[most_common]} times)")
    if age >= LEGAL_AGE:
    ```
 
-## Common Mistakes
-
-- **Forgetting colons after if/for/def:** `if x > 5` ❌ should be `if x > 5:` ✅
-- **Wrong indentation:** Python uses spaces/tabs to define code blocks
-- **Using = instead of ==:** `if x = 5` ❌ should be `if x == 5` ✅
-- **Modifying list while looping:** Can cause unexpected behavior
-- **Forgetting to close files:** Use `with` statement to avoid this
-- **Confusing mutable vs immutable:** Lists can be changed, tuples cannot
-
-## Quick Reference
-
-| Concept | Syntax | Example |
-|---------|--------|---------|
-| Variable | `name = value` | `x = 10` |
-| String | quotes | `"hello"` or `'hello'` |
-| List | `[item1, item2]` | `[1, 2, 3]` |
-| Dictionary | `{key: value}` | `{"name": "Alice"}` |
-| Function | `def name():` | `def greet():` |
-| If statement | `if condition:` | `if x > 5:` |
-| For loop | `for item in list:` | `for x in [1,2,3]:` |
-| While loop | `while condition:` | `while x < 10:` |
-| Try-except | `try: / except:` | error handling |
-
 ---
 
 ## Summary

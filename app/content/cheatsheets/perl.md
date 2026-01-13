@@ -418,33 +418,6 @@ close($fh);
 print "Total errors: $error_count\n";
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Forgetting `use strict;` | Always enable: `use strict;` at top |
-| Confusing `=` and `==` | `==` for numbers, `=` for assignment |
-| Wrong sigil for scalar in hash | Use `$hash{key}` not `@hash{key}` |
-| Not checking file open | Always: `open(...) or die "Cannot open: $!";` |
-| Modifying while iterating | Use `map` or `grep` instead of foreach |
-| Forgetting `chomp()` on input | Remove newlines: `chomp($line);` |
-| Treating regex flags casually | Always test with `/i`, `/g`, `/m` modifiers |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `my $x = 10;` |
-| Array | `my @arr = (1, 2, 3);` |
-| Hash | `my %h = (a => 1);` |
-| String interp | `"Hello $name"` |
-| Regex match | `if ($str =~ /pat/)` |
-| Regex replace | `$str =~ s/old/new/g;` |
-| File read | `open(my $fh, '<', 'file.txt');` |
-| Function | `sub add { return $_[0] + $_[1]; }` |
-| Loop array | `foreach my $x (@arr) { }` |
-| Split string | `my @parts = split /,/, $str;` |
-
 ## Summary
 
 Perl excels at **text processing, regex, and system administration**. Its powerful one-liners and extensive CPAN library make it indispensable for DevOps and scripting. Perfect for those who need to process text and files efficiently!

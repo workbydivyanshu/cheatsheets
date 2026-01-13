@@ -389,36 +389,6 @@ backface-visibility: hidden;
 }
 ```
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Forgetting to clear floats | Use `overflow: auto;` or `clear: both;` |
-| Margin collapsing | Understand block margin collapsing (margins collapse vertically) |
-| Flexbox with default align-items | Use `align-items: center;` to center vertically |
-| Z-index not working | Z-index only works on positioned elements (not `position: static`) |
-| Overflow with nested elements | Use `overflow: hidden;` with `border-radius` carefully |
-| Media query breakpoints | Use `max-width` and `min-width` carefully to avoid overlap |
-| Font loading delay | Use `font-display: swap;` for better FOUP handling |
-| Not using box-sizing: border-box | Always set: `* { box-sizing: border-box; }` |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Class selector | `.class { }` |
-| ID selector | `#id { }` |
-| Descendant | `.parent .child { }` |
-| Child | `.parent > .child { }` |
-| Flexbox | `display: flex; justify-content: center;` |
-| Grid | `display: grid; grid-template-columns: 1fr 1fr;` |
-| Centering | `margin: 0 auto;` (horizontal) or flexbox |
-| Media query | `@media (max-width: 768px) { }` |
-| Transform | `transform: translateX(10px) rotate(45deg);` |
-| Transition | `transition: all 0.3s ease;` |
-| Animation | `animation: slidein 1s ease-in-out;` |
-| Pseudo-element | `::before { content: ""; }` |
-
 ## Summary
 
 CSS is the **styling language for the web**. Master selectors, flexbox/grid, and responsive design to build beautiful, functional websites.

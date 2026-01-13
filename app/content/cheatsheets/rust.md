@@ -613,34 +613,6 @@ fn main() {
 4. **Use pattern matching** with `match`
 5. **Keep functions focused**
 
-## Common Mistakes
-
-| ❌ Mistake | ✅ Fix |
-|-----------|--------|
-| Using unwrap() too much | Use `match` or `if let`: `if let Ok(v) = result { }` |
-| Moving when borrowing is better | Use references: `&s` not `s` when not needed |
-| Mutable references conflicts | Only one mutable ref at a time: `&mut x` |
-| Forgetting to check Option | Use `match` or `.is_some()` before unwrapping |
-| String vs &str confusion | `&str` is reference, `String` is owned |
-| Clone vs Copy misuse | Use references, not `.clone()` when possible |
-| Panicking in libraries | Use `Result` not `panic!()` in library code |
-| Not using pattern matching | Use `match` for clarity: `match result { Ok(v) => ..., Err(e) => ... }` |
-
-## Quick Reference
-
-| Concept | Example |
-|---------|---------|
-| Variable | `let x = 10;` |
-| Mutable | `let mut x = 10;` |
-| String | `let s = String::from("hello");` |
-| Vector | `let v = vec![1, 2, 3];` |
-| Function | `fn add(a: i32, b: i32) -> i32 { a + b }` |
-| Struct | `struct Person { name: String, age: u32 }` |
-| Option | `let x: Option<i32> = Some(5);` |
-| Result | `let r: Result<i32, Error> = Ok(5);` |
-| Pattern match | `match x { Some(v) => ..., None => ... }` |
-| Closure | `\|x\| x * 2` |
-
 ## Summary
 
 Rust provides **memory safety without garbage collection**. The borrow checker ensures:
