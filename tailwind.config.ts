@@ -9,9 +9,9 @@ const config: Config = {
     colors: {
       white: "#ffffff",
       transparent: "transparent",
-      primary: "rgb(var(--color-primary) / <alpha-value>)",
-      secondary: "rgb(var(--color-secondary) / <alpha-value>)",
-      accent: "rgb(var(--color-accent) / <alpha-value>)",
+      primary: "#1f2937",
+      secondary: "#374151",
+      accent: "#3b82f6",
       gray: {
         400: "#9ca3af",
         600: "#4b5563",

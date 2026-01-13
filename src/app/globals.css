@@ -3,12 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --color-primary: 31 41 55;
-    --color-secondary: 55 65 81;
-    --color-accent: 59 130 246;
-  }
-
   * {
     margin: 0;
     padding: 0;
