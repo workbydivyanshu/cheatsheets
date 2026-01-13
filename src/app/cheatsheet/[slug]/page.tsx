@@ -1,6 +1,7 @@
 import { getCheatsheetBySlug, getAllCheatsheets } from "@/lib/cheatsheets";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Metadata } from "next";
 import CopyButton from "@/components/CopyButton";
 
 interface PageProps {
@@ -16,7 +17,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const cheatsheet = await getCheatsheetBySlug(slug);
 
