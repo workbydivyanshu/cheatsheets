@@ -2,16 +2,20 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        primary: "#1f2937",
-        secondary: "#374151",
-        accent: "#3b82f6",
+    colors: {
+      white: "#ffffff",
+      transparent: "transparent",
+      primary: "rgb(var(--color-primary) / <alpha-value>)",
+      secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+      accent: "rgb(var(--color-accent) / <alpha-value>)",
+      gray: {
+        400: "#9ca3af",
+        600: "#4b5563",
+        700: "#374151",
       },
     },
   },
