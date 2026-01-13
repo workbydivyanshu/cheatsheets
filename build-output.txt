@@ -1,0 +1,54 @@
+
+> cheatsheets@1.0.0 build
+> next build
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /home/divyu/package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles: 
+   * /home/divyu/Documents/GitHub/cheatsheets/package-lock.json
+
+   ▲ Next.js 15.5.9
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.1s
+   Linting and checking validity of types ...
+   Collecting page data ...
+Error reading cheatsheets: Error: ENOENT: no such file or directory, scandir '/home/divyu/Documents/GitHub/cheatsheets/content/cheatsheets'
+    at async n (.next/server/app/cheatsheet/[slug]/page.js:2:8471)
+    at async Object.k [as generateStaticParams] (.next/server/app/cheatsheet/[slug]/page.js:2:11894) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/home/divyu/Documents/GitHub/cheatsheets/content/cheatsheets'
+}
+   Generating static pages (0/4) ...
+Error reading cheatsheets: Error: ENOENT: no such file or directory, scandir '/home/divyu/Documents/GitHub/cheatsheets/content/cheatsheets'
+    at async n (.next/server/app/page.js:2:10008)
+    at async i (.next/server/app/page.js:13:165) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'scandir',
+  path: '/home/divyu/Documents/GitHub/cheatsheets/content/cheatsheets'
+}
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    3.06 kB         109 kB
+├ ○ /_not-found                            996 B         103 kB
+└ ● /cheatsheet/[slug]                     162 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/255-cb395327542b56ef.js       46.1 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.4 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+

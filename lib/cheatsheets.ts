@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { codeToHtml } from "shiki";
 
-const CHEATSHEETS_DIR = path.join(process.cwd(), "content", "cheatsheets");
+const CHEATSHEETS_DIR = path.join(process.cwd(), "app", "content", "cheatsheets");
 
 export interface CheatsheetFrontmatter {
   title: string;
