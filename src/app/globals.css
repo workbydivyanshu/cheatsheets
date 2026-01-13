@@ -1,7 +1,11 @@
 /* ! tailwindcss v4 */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1f2937;
+  --color-secondary: #374151;
+  --color-accent: #3b82f6;
+}
 
 @layer base {
   * {

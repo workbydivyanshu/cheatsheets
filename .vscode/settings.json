@@ -1,8 +1,7 @@
 {
-  "css.lint.unknownAtRules": "ignore",
-  "css.lint.compatibleVendorPrefixes": "ignore",
-  "css.lint.vendorPrefix": "ignore",
-  "css.lint.validProperties": ["composes"],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -11,7 +10,9 @@
   },
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.stylelint": true
-  }
+    "source.fixAll.eslint": true
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
 }
