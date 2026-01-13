@@ -96,65 +96,89 @@ async function markdownToHtml(markdown: string): Promise<string> {
   // Ordered lists
   html = html.replace(/^\d+\. (.*?)$/gm, "<li class='ml-4'>$1</li>");
 
-  // Paragraphs - more careful handling
+  // Paragraphs - group consecutive lines and wrap together
   const lines = html.split("\n");
   let inCodeBlock = false;
   let inList = false;
-  html = lines
-    .map((line) => {
-      // Track code blocks
-      if (line.includes("<div class=\"bg-secondary")) {
-        inCodeBlock = true;
-      }
-      if (line.includes("</div>") && inCodeBlock) {
-        inCodeBlock = false;
-      }
+  let inTable = false;
+  const result: string[] = [];
+  let currentParagraph: string[] = [];
 
-      // Track lists
-      if (line.includes("<ul") || line.includes("<ol")) {
-        inList = true;
-      }
-      if (line.includes("</ul>") || line.includes("</ol>")) {
-        inList = false;
-      }
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
 
-      // Skip wrapping for structural elements
-      if (
-        line.startsWith("<h") ||
-        line.startsWith("<ul") ||
-        line.startsWith("<ol") ||
-        line.startsWith("</ul>") ||
-        line.startsWith("</ol>") ||
-        line.startsWith("<div") ||
-        line.startsWith("</div>") ||
-        line.startsWith("<pre") ||
-        line.startsWith("</pre>") ||
-        line.startsWith("<li") ||
-        line.startsWith("<blockquote") ||
-        line.startsWith("<table") ||
-        line.startsWith("</table>") ||
-        line.startsWith("<tr") ||
-        line.startsWith("</tr>") ||
-        line.startsWith("<hr") ||
-        inCodeBlock ||
-        inList
-      ) {
-        return line;
-      }
+    // Track code blocks
+    if (line.includes("<div class=\"bg-secondary")) {
+      inCodeBlock = true;
+    }
+    if (line.includes("</div>") && inCodeBlock) {
+      inCodeBlock = false;
+    }
 
-      // Empty lines
-      if (line.trim() === "") {
-        return "";
-      }
+    // Track lists
+    if (line.includes("<ul") || line.includes("<ol")) {
+      inList = true;
+    }
+    if (line.includes("</ul>") || line.includes("</ol>")) {
+      inList = false;
+    }
 
-      // Wrap in paragraph
-      if (line.trim()) {
-        return `<p class="text-gray-300 my-3 leading-relaxed">${line}</p>`;
-      }
+    // Track tables
+    if (line.includes("<table")) {
+      inTable = true;
+    }
+    if (line.includes("</table>")) {
+      inTable = false;
+    }
 
-      return line;
-    })
-    .join("\n");
+    // Check if this is a structural element
+    const isStructural =
+      line.startsWith("<h") ||
+      line.startsWith("<ul") ||
+      line.startsWith("<ol") ||
+      line.startsWith("</ul>") ||
+      line.startsWith("</ol>") ||
+      line.startsWith("<div") ||
+      line.startsWith("</div>") ||
+      line.startsWith("<pre") ||
+      line.startsWith("</pre>") ||
+      line.startsWith("<li") ||
+      line.startsWith("<blockquote") ||
+      line.startsWith("<table") ||
+      line.startsWith("</table>") ||
+      line.startsWith("<tr") ||
+      line.startsWith("</tr>") ||
+      line.startsWith("<hr") ||
+      inCodeBlock ||
+      inList ||
+      inTable;
+
+    // If it's empty
+    if (line.trim() === "") {
+      if (currentParagraph.length > 0) {
+        result.push(`<p class="text-gray-300 my-3 leading-relaxed">${currentParagraph.join(" ")}</p>`);
+        currentParagraph = [];
+      }
+      result.push("");
+    } else if (isStructural) {
+      // Flush current paragraph
+      if (currentParagraph.length > 0) {
+        result.push(`<p class="text-gray-300 my-3 leading-relaxed">${currentParagraph.join(" ")}</p>`);
+        currentParagraph = [];
+      }
+      result.push(line);
+    } else {
+      // Regular text - accumulate for paragraph
+      currentParagraph.push(line.trim());
+    }
+  }
+
+  // Flush any remaining paragraph
+  if (currentParagraph.length > 0) {
+    result.push(`<p class="text-gray-300 my-3 leading-relaxed">${currentParagraph.join(" ")}</p>`);
+  }
+
+  html = result.join("\n");
 
   return html;
 }
