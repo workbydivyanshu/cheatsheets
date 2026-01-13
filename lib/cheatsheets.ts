@@ -53,13 +53,17 @@ async function markdownToHtml(markdown: string): Promise<string> {
     const rows = tableBlock.trim().split('\n');
     if (rows.length < 2) return tableBlock;
     
+    // Filter out separator row first, then process
+    const dataRows = rows.filter(row => !/^\|?[\s:-]+\|?$/.test(row.trim()));
+    
+    if (dataRows.length === 0) return tableBlock;
+    
     let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse border border-gray-700">';
     
-    rows.forEach((row, index) => {
-      // Skip separator row (contains only -, :, |, and spaces)
-      if (/^[\s|:-]+$/.test(row)) return;
-      
+    dataRows.forEach((row, index) => {
       const cells = row.split('|').filter(cell => cell.trim() !== '');
+      if (cells.length === 0) return;
+      
       const isHeader = index === 0;
       const tag = isHeader ? 'th' : 'td';
       const cellClass = isHeader 
