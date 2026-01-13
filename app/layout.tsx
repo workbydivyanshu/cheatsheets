@@ -28,7 +28,7 @@ export default function RootLayout({
           <header className="bg-secondary shadow">
             <div className="max-w-7xl mx-auto px-6 py-6">
               <h1 className="text-4xl font-bold text-accent">Cheatsheets</h1>
-              <p className="text-gray-400 mt-2">
+              <p className="text-sm text-gray-400 mt-1">
                 Your complete coding companion
               </p>
             </div>
