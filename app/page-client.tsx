@@ -49,14 +49,14 @@ export default function PageClient({ cheatsheets }: HomeProps) {
       <section className="relative pt-20 pb-24 overflow-hidden">
         <div className="absolute inset-0 -z-10">
           {/* Animated gradient orbs */}
-          <div className="absolute top-32 left-20 w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-32 w-96 h-96 bg-gradient-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: "1s"}}></div>
-          <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-32 left-20 w-96 h-96 bg-linear-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-32 w-96 h-96 bg-linear-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: "1s"}}></div>
+          <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-linear-to-tr from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-5xl mx-auto text-center space-y-8">
           {/* Premium badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500/10 via-transparent to-indigo-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-cyan-500/10 via-transparent to-indigo-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
             <span className="text-cyan-300 text-sm font-semibold tracking-wide">Learn Major Languages</span>
           </div>
@@ -64,7 +64,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
           <h1 className="text-7xl md:text-8xl font-black leading-tight">
             Master Every
             <br />
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent inline-block">
+            <span className="bg-linear-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent inline-block">
               Programming Language
             </span>
           </h1>
@@ -80,7 +80,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
                 const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
                 if (searchInput) searchInput.focus();
               }}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl hover:from-cyan-400 hover:to-blue-400 transition-all duration-200 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
+              className="px-8 py-4 bg-linear-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl hover:from-cyan-400 hover:to-blue-400 transition-all duration-200 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
             >
               Start Learning
             </button>
@@ -93,19 +93,19 @@ export default function PageClient({ cheatsheets }: HomeProps) {
 
       {/* Stats Section */}
       <section className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div className="bg-gradient-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
+        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
           <div className="text-3xl font-bold text-cyan-400">{cheatsheets.length}+</div>
           <div className="text-gray-400 text-sm mt-2">Languages & Frameworks</div>
         </div>
-        <div className="bg-gradient-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
+        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
           <div className="text-3xl font-bold text-cyan-400">10K+</div>
           <div className="text-gray-400 text-sm mt-2">Code Examples</div>
         </div>
-        <div className="bg-gradient-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
+        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
           <div className="text-3xl font-bold text-cyan-400">100%</div>
           <div className="text-gray-400 text-sm mt-2">Beginner Friendly</div>
         </div>
-        <div className="bg-gradient-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
+        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
           <div className="text-3xl font-bold text-cyan-400">Free</div>
           <div className="text-gray-400 text-sm mt-2">Always & Forever</div>
         </div>
@@ -116,7 +116,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
         <h2 className="text-4xl font-bold text-center">Find Your Language</h2>
 
         <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-indigo-500/20 rounded-2xl blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-200"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-cyan-500/20 to-indigo-500/20 rounded-2xl blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-200"></div>
           <input
             type="text"
             placeholder="Search JavaScript, Python, React, TypeScript, SQL, Ruby..."
@@ -139,7 +139,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-200 text-sm ${
                   selectedCategory === cat
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/40"
+                    ? "bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/40"
                     : "bg-secondary text-gray-300 hover:text-white border border-border hover:border-cyan-500/50 hover:bg-tertiary"
                 }`}
               >
@@ -172,12 +172,12 @@ export default function PageClient({ cheatsheets }: HomeProps) {
                   animationDelay: `${index * 50}ms`,
                 }}
               >
-                <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-tertiary border border-border hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20 flex flex-col">
+                <div className="relative h-full overflow-hidden rounded-2xl bg-linear-to-br from-secondary to-tertiary border border-border hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20 flex flex-col">
                   {/* Hover gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-linear-to-br from-cyan-500/10 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
                   {/* Content */}
-                  <div className="relative p-8 space-y-5 flex flex-col flex-grow">
+                  <div className="relative p-8 space-y-5 flex flex-col grow">
                     {/* Category badge with icon */}
                     <div className="inline-flex items-center gap-2 w-fit">
                       <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
@@ -192,7 +192,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-gray-400 text-sm leading-relaxed flex-grow">
+                    <p className="text-gray-400 text-sm leading-relaxed grow">
                       {sheet.description}
                     </p>
 
