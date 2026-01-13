@@ -50,7 +50,7 @@ export default function PageClient({ cheatsheets }: HomeProps) {
         <div className="absolute inset-0 -z-10">
           {/* Animated gradient orbs */}
           <div className="absolute top-32 left-20 w-96 h-96 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-32 w-96 h-96 bg-gradient-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute bottom-0 right-32 w-96 h-96 bg-gradient-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: "1s"}}></div>
           <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
         </div>
         
