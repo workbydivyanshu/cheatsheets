@@ -47,6 +47,36 @@ async function markdownToHtml(markdown: string): Promise<string> {
   // Simple markdown parser - converts basic markdown to HTML
   let html = markdown;
 
+  // First, handle tables BEFORE other processing
+  // Match table blocks (header row, separator row, and data rows)
+  html = html.replace(/(\|[^\n]+\|\n\|[-:\s|]+\|\n(?:\|[^\n]+\|\n?)+)/g, (tableBlock) => {
+    const rows = tableBlock.trim().split('\n');
+    if (rows.length < 2) return tableBlock;
+    
+    let tableHtml = '<div class="overflow-x-auto my-6"><table class="w-full border-collapse border border-gray-700">';
+    
+    rows.forEach((row, index) => {
+      // Skip separator row (contains only -, :, |, and spaces)
+      if (/^[\s|:-]+$/.test(row)) return;
+      
+      const cells = row.split('|').filter(cell => cell.trim() !== '');
+      const isHeader = index === 0;
+      const tag = isHeader ? 'th' : 'td';
+      const cellClass = isHeader 
+        ? 'bg-secondary border border-gray-700 px-4 py-2 font-bold text-left' 
+        : 'border border-gray-700 px-4 py-2';
+      
+      tableHtml += '<tr>';
+      cells.forEach(cell => {
+        tableHtml += `<${tag} class="${cellClass}">${cell.trim()}</${tag}>`;
+      });
+      tableHtml += '</tr>';
+    });
+    
+    tableHtml += '</table></div>';
+    return tableHtml;
+  });
+
   // Headers with proper Tailwind classes
   html = html.replace(/^### (.*?)$/gm, '<h3 class="text-xl font-bold mt-6 mb-3">$1</h3>');
   html = html.replace(/^## (.*?)$/gm, '<h2 class="text-2xl font-bold mt-8 mb-4">$1</h2>');
@@ -59,42 +89,34 @@ async function markdownToHtml(markdown: string): Promise<string> {
     return `<div class="bg-secondary rounded-lg p-4 my-4 overflow-x-auto"><pre><code class="language-${language}">${escapeHtml(trimmedCode)}</code></pre></div>`;
   });
 
-  // Bold
+  // Bold (before italic to avoid conflicts)
   html = html.replace(/\*\*(.*?)\*\*/g, "<strong class='font-bold'>$1</strong>");
 
   // Italic
-  html = html.replace(/\*(.*?)\*/g, "<em class='italic'>$1</em>");
+  html = html.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em class='italic'>$1</em>");
 
   // Links with proper styling
   html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-accent hover:underline">$1</a>');
 
-  // Code inline
+  // Code inline (but not inside code blocks)
   html = html.replace(/`([^`]+)`/g, '<code class="bg-secondary px-2 py-1 rounded text-sm font-mono">$1</code>');
 
   // Blockquotes
-  html = html.replace(/^> (.*?)$/gm, '<blockquote class="border-l-4 border-accent pl-4 italic text-gray-400">$1</blockquote>');
+  html = html.replace(/^> (.*?)$/gm, '<blockquote class="border-l-4 border-accent pl-4 italic text-gray-400 my-3">$1</blockquote>');
 
   // Horizontal rules
   html = html.replace(/^---$/gm, '<hr class="border-gray-700 my-6">');
 
-  // Tables - preserve as-is for now
-  // Tables: |...|...|
-  html = html.replace(/^\|(.+)\|$/gm, (match) => {
-    const cells = match.split('|').filter(cell => cell.trim());
-    return `<tr><td class="border border-gray-700 px-4 py-2">${cells.join('</td><td class="border border-gray-700 px-4 py-2">')}</td></tr>`;
-  });
-
-  // Lists - handle both * and - bullets
-  html = html.replace(/^\* (.*?)$/gm, "<li class='ml-4'>$1</li>");
-  html = html.replace(/^- (.*?)$/gm, "<li class='ml-4'>$1</li>");
+  // Unordered lists - handle both * and - bullets
+  html = html.replace(/^[\*\-] (.*?)$/gm, '<li class="ml-4">$1</li>');
   
-  // Wrap consecutive list items in ul
-  html = html.replace(/(<li class='ml-4'>.*<\/li>)/s, (match) => {
-    return `<ul class="list-disc space-y-1 my-3">${match}</ul>`;
-  });
-
   // Ordered lists
-  html = html.replace(/^\d+\. (.*?)$/gm, "<li class='ml-4'>$1</li>");
+  html = html.replace(/^\d+\. (.*?)$/gm, '<li class="ml-4">$1</li>');
+
+  // Wrap consecutive list items in ul/ol
+  html = html.replace(/((?:<li class="ml-4">.*?<\/li>\n?)+)/g, (match) => {
+    return `<ul class="list-disc space-y-1 my-3 pl-4">${match}</ul>`;
+  });
 
   // Paragraphs - group consecutive lines and wrap together
   const lines = html.split("\n");
