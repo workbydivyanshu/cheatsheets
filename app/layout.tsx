@@ -60,7 +60,9 @@ export default async function RootLayout({
 
                 <div className="flex gap-8 text-sm font-medium text-gray-400">
                   <a href="https://github.com/workbydivyanshu" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-                <Link href="/" className="hover:text-white transition-colors">All Guides</Link>
+                  <Link href="/" className="hover:text-white transition-colors">All Guides</Link>
+                </div>
+
                 <div className="text-gray-500 text-xs">
                   &copy; 2026 Cheatsheets. Crafted by{" "}
                   <a
