@@ -2,6 +2,9 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, ChevronRight, Copy, Check, Filter, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Cheatsheet {
   slug: string;
@@ -44,240 +47,153 @@ export default function PageClient({ cheatsheets }: HomeProps) {
   }, []);
 
   return (
-    <div className="space-y-16 py-8">
-      {/* Premium Hero Section */}
-      <section className="relative pt-20 pb-24 overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          {/* Animated gradient orbs */}
-          <div className="absolute top-32 left-20 w-96 h-96 bg-linear-to-br from-cyan-500/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-32 w-96 h-96 bg-linear-to-bl from-indigo-500/20 to-transparent rounded-full blur-3xl animate-pulse" style={{animationDelay: "1s"}}></div>
-          <div className="absolute top-1/2 left-1/3 w-72 h-72 bg-linear-to-tr from-blue-500/10 to-transparent rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="max-w-5xl mx-auto text-center space-y-8">
-          {/* Premium badge */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-linear-to-r from-cyan-500/10 via-transparent to-indigo-500/10 border border-cyan-500/30 rounded-full backdrop-blur-sm">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <span className="text-cyan-300 text-sm font-semibold tracking-wide">Learn Major Languages</span>
-          </div>
-          
-          <h1 className="text-7xl md:text-8xl font-black leading-tight">
-            Master Every
-            <br />
-            <span className="bg-linear-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent inline-block">
-              Programming Language
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Comprehensive, beginner-friendly cheatsheets with clear examples, common mistakes, best practices, and real-world tips.
-          </p>
+    <div className="max-w-7xl mx-auto px-6 space-y-24 py-20">
+      {/* Hero Section */}
+      <section className="relative text-center space-y-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-sm font-medium"
+        >
+          <Sparkles className="w-4 h-4" />
+          <span>Next-Gen Coding Documentation</span>
+        </motion.div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
-            <button 
-              onClick={() => {
-                const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
-                if (searchInput) searchInput.focus();
-              }}
-              className="px-8 py-4 bg-linear-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl hover:from-cyan-400 hover:to-blue-400 transition-all duration-200 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50"
-            >
-              Start Learning
-            </button>
-            <a href="#search" className="px-8 py-4 bg-secondary text-white font-semibold rounded-xl border border-border hover:border-cyan-500/50 transition-all duration-200">
-              Browse All
-            </a>
-          </div>
-        </div>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-6xl md:text-8xl font-black tracking-tight"
+        >
+          Master any language<br />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-accent via-accent-secondary to-indigo-400">
+            One cheatsheet at a time.
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="max-w-2xl mx-auto text-xl text-gray-400"
+        >
+          Interactive, high-fidelity documentation designed for 2026&apos;s elite developers.
+          Search, copy, and implement in seconds.
+        </motion.p>
       </section>
 
-      {/* Stats Section */}
-      <section className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
-          <div className="text-3xl font-bold text-cyan-400">{cheatsheets.length}+</div>
-          <div className="text-gray-400 text-sm mt-2">Languages & Frameworks</div>
-        </div>
-        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
-          <div className="text-3xl font-bold text-cyan-400">10K+</div>
-          <div className="text-gray-400 text-sm mt-2">Code Examples</div>
-        </div>
-        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
-          <div className="text-3xl font-bold text-cyan-400">100%</div>
-          <div className="text-gray-400 text-sm mt-2">Beginner Friendly</div>
-        </div>
-        <div className="bg-linear-to-br from-tertiary to-secondary p-6 rounded-xl border border-border">
-          <div className="text-3xl font-bold text-cyan-400">Free</div>
-          <div className="text-gray-400 text-sm mt-2">Always & Forever</div>
-        </div>
-      </section>
-
-      {/* Search and Filter Section */}
-      <section id="search" className="space-y-8 max-w-6xl mx-auto">
-        <h2 className="text-4xl font-bold text-center">Find Your Language</h2>
-
-        <div className="relative group">
-          <div className="absolute inset-0 bg-linear-to-r from-cyan-500/20 to-indigo-500/20 rounded-2xl blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-200"></div>
-          <input
-            type="text"
-            placeholder="Search JavaScript, Python, React, TypeScript, SQL, Ruby..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="relative w-full px-7 py-5 bg-secondary text-white rounded-2xl border-2 border-border focus:border-cyan-500 focus:outline-none transition-all duration-200 focus:ring-4 focus:ring-cyan-500/20 placeholder-gray-500 text-lg"
-          />
-          <svg className="absolute right-5 top-5 w-6 h-6 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-
-        {/* Category Filter - Premium */}
-        <div className="space-y-4">
-          <p className="text-gray-400 text-sm font-medium">Filter by category:</p>
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-6 py-2.5 rounded-full font-semibold transition-all duration-200 text-sm ${
-                  selectedCategory === cat
-                    ? "bg-linear-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/40"
-                    : "bg-secondary text-gray-300 hover:text-white border border-border hover:border-cyan-500/50 hover:bg-tertiary"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+      {/* Interface Section */}
+      <div className="space-y-12">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          {/* Search Box */}
+          <div className="flex-1 max-w-2xl space-y-4">
+            <label className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <Search className="w-4 h-4" />
+              Quick Search
+            </label>
+            <div className="relative group">
+              <input
+                type="text"
+                placeholder="e.g. React, Python, SQL..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full h-16 px-6 bg-secondary/40 border border-border/40 rounded-2xl text-lg focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/10 transition-all placeholder:text-gray-600"
+              />
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Results Section */}
-      <section className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <p className="text-gray-400">
-              Showing <span className="text-cyan-400 font-bold text-lg">{filteredCheatsheets.length}</span> of <span className="font-bold">{cheatsheets.length}</span> cheatsheets
-            </p>
+          {/* Categories */}
+          <div className="space-y-4 max-w-full overflow-hidden">
+            <label id="category-filter-label" className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
+              <Filter className="w-4 h-4" aria-hidden="true" />
+              Categories
+            </label>
+            <nav aria-labelledby="category-filter-label" className="flex gap-2 p-1 bg-secondary/40 border border-border/40 rounded-xl">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  aria-pressed={selectedCategory === cat}
+                  className={cn(
+                    "px-5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap",
+                    selectedCategory === cat
+                      ? "bg-accent text-primary shadow-lg shadow-accent/20"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  )}
+                >
+                  {cat}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
 
-        {filteredCheatsheets.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-16">
-            {filteredCheatsheets.map((sheet, index) => (
-              <Link
+        {/* Results Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+          <AnimatePresence mode="popLayout">
+            {filteredCheatsheets.map((sheet, idx) => (
+              <motion.div
+                layout
                 key={sheet.slug}
-                href={`/cheatsheet/${sheet.slug}`}
-                className="group relative h-full"
-                style={{
-                  animation: `fadeInUp 0.5s ease-out forwards`,
-                  animationDelay: `${index * 50}ms`,
-                }}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
               >
-                <div className="relative h-full overflow-hidden rounded-2xl bg-linear-to-br from-secondary to-tertiary border border-border hover:border-cyan-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-500/20 flex flex-col">
-                  {/* Hover gradient overlay */}
-                  <div className="absolute inset-0 bg-linear-to-br from-cyan-500/10 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  {/* Content */}
-                  <div className="relative p-8 space-y-5 flex flex-col grow">
-                    {/* Category badge with icon */}
-                    <div className="inline-flex items-center gap-2 w-fit">
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
-                      <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-                        {sheet.category}
-                      </span>
+                <Link href={`/cheatsheet/${sheet.slug}`} className="group block h-full">
+                  <div className="h-full p-8 bg-secondary/20 border border-border/40 rounded-3xl hover:border-accent/40 hover:bg-secondary/40 transition-all duration-300 relative overflow-hidden flex flex-col">
+                    <div className="absolute top-0 right-0 p-6 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ChevronRight className="w-6 h-6 text-accent" />
                     </div>
 
-                    {/* Title with premium styling */}
-                    <h3 className="text-2xl font-black text-white group-hover:text-cyan-400 transition-colors duration-200 leading-tight">
-                      {sheet.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-gray-400 text-sm leading-relaxed grow">
-                      {sheet.description}
-                    </p>
-
-                    {/* Footer with interaction elements */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border/50 mt-auto">
-                      <div className="text-cyan-400 group-hover:translate-x-1 transition-transform duration-200">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
+                    <div className="space-y-6 flex-1">
+                      <div className="inline-block px-3 py-1 bg-accent/10 border border-accent/20 rounded-full text-[10px] font-bold text-accent uppercase tracking-tighter">
+                        {sheet.category}
                       </div>
+
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-bold group-hover:text-accent transition-colors">
+                          {sheet.title}
+                        </h3>
+                        <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">
+                          {sheet.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-8 pt-6 border-t border-border/40 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-gray-500 group-hover:text-gray-400 transition-colors">
+                        View full guide &rarr;
+                      </span>
                       <button
                         onClick={(e) => handleCopyLink(sheet.slug, e)}
-                        className="text-xs text-gray-500 hover:text-cyan-400 transition-colors duration-200 flex items-center gap-1"
+                        className="p-2 text-gray-500 hover:text-accent transition-colors"
                       >
-                        {copiedSlug === sheet.slug ? (
-                          <>
-                            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth={2} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                            Copied
-                          </>
-                        ) : (
-                          <>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                            </svg>
-                            Share
-                          </>
-                        )}
+                        {copiedSlug === sheet.slug ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </motion.div>
             ))}
-          </div>
-        ) : (
-          <div className="text-center py-20">
-            <div className="space-y-4 bg-secondary/50 rounded-2xl p-12 border border-border">
-              <svg className="mx-auto w-16 h-16 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <h3 className="text-2xl font-bold text-white">No Results Found</h3>
-              <p className="text-gray-400 max-w-md mx-auto">
-                Try searching with different keywords or adjust your filters. All our cheatsheets are free and ready to explore!
-              </p>
-              <button
-                onClick={() => {
-                  setSearchTerm("");
-                  setSelectedCategory("All");
-                }}
-                className="mt-4 px-6 py-2 bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 rounded-lg hover:bg-cyan-500/30 transition-colors"
-              >
-                Clear Filters
-              </button>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {/* Footer CTA */}
-      <section className="border-t border-border mt-12 pt-12">
-        <div className="max-w-4xl mx-auto text-center space-y-6 pb-12">
-          <h2 className="text-3xl font-bold">
-            Start Learning <span className="text-cyan-400">Today</span>
-          </h2>
-          <p className="text-gray-400">
-            Pick any language above and start exploring. Every cheatsheet includes practical examples and best practices.
-          </p>
+          </AnimatePresence>
         </div>
-      </section>
 
-      {/* CSS for animations */}
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
+        {filteredCheatsheets.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="py-32 text-center space-y-4"
+          >
+            <div className="w-20 h-20 bg-secondary/40 border border-border/40 rounded-3xl flex items-center justify-center mx-auto mb-8">
+              <Search className="w-10 h-10 text-gray-600" />
+            </div>
+            <h3 className="text-2xl font-bold">No guides found</h3>
+            <p className="text-gray-500">Try adjusting your search or category filters.</p>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }

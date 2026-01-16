@@ -1,0 +1,57 @@
+
+> cheatsheets@1.0.0 dev
+> next dev
+
+   ▲ Next.js 15.5.9
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.7:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.8s
+ ○ Compiling / ...
+ ✓ Compiled / in 4.2s (1552 modules)
+ GET / 200 in 5448ms
+ GET / 200 in 157ms
+ GET / 200 in 176ms
+ GET / 200 in 193ms
+ ○ Compiling /cheatsheet/[slug] ...
+ ✓ Compiled /cheatsheet/[slug] in 758ms (1575 modules)
+ GET /cheatsheet/python 200 in 1095ms
+ GET /cheatsheet/javascript 200 in 3296ms
+ GET / 200 in 66ms
+ ✓ Compiled in 308ms (650 modules)
+ ✓ Compiled in 129ms (650 modules)
+ ✓ Compiled in 309ms (650 modules)
+ ✓ Compiled in 138ms (650 modules)
+ ✓ Compiled in 240ms (650 modules)
+ ✓ Compiled in 309ms (651 modules)
+ ✓ Compiled in 86ms (651 modules)
+ ✓ Compiled in 117ms (651 modules)
+ ✓ Compiled in 90ms (651 modules)
+ ✓ Compiled in 295ms (651 modules)
+ ✓ Compiled in 188ms (650 modules)
+ ✓ Compiled in 143ms (650 modules)
+ ✓ Compiled in 227ms (650 modules)
+ ✓ Compiled in 141ms (650 modules)
+ ✓ Compiled in 205ms (650 modules)
+ ✓ Compiled in 155ms (650 modules)
+ ✓ Compiled in 102ms (650 modules)
+ ✓ Compiled in 222ms (650 modules)
+ ✓ Compiled in 130ms (650 modules)
+ ✓ Compiled in 141ms (650 modules)
+ ✓ Compiled in 264ms (650 modules)
+ ✓ Compiled in 173ms (650 modules)
+ ✓ Compiled in 80ms (650 modules)
+ ✓ Compiled in 82ms (636 modules)
+ ✓ Compiled in 164ms (650 modules)
+ ✓ Compiled in 157ms (650 modules)
+ ✓ Compiled in 270ms (650 modules)
+ ✓ Compiled in 254ms (650 modules)
+ ✓ Compiled in 120ms (650 modules)
+ ✓ Compiled in 112ms (650 modules)
+ ✓ Compiled in 124ms (650 modules)
+ ✓ Compiled in 259ms (651 modules)
+ ✓ Compiled in 113ms (651 modules)
+ ✓ Compiled in 52ms (637 modules)
+ ✓ Compiled in 80ms (651 modules)
+[?25h

@@ -1,0 +1,8 @@
+
+> cheatsheets@1.0.0 test:unit
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90m/home/divyu/Documents/GitHub/cheatsheets[39m
+
+ [31m❯[39m tests/unit/cheatsheets.test.ts [2m([22m[2m0 test[22m[2m)[22m

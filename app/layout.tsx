@@ -1,59 +1,82 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ScrollRestoration from "./scroll-restoration";
+import Navbar from "@/components/navbar";
+import { CheatsheetProvider } from "@/lib/cheatsheet-context";
+import { getAllCheatsheets } from "@/lib/cheatsheets";
 
 export const metadata: Metadata = {
-  title: "Cheatsheets - Your Coding Companion",
+  title: "Cheatsheets - Modern Coding Companion 2026",
   description:
-    "Complete cheatsheets for all major coding languages. Search, learn, and code with confidence.",
+    "Premium, high-performance cheatsheets for modern developers. Search, learn, and master any language.",
   keywords: [
     "cheatsheet",
     "coding",
     "programming",
     "javascript",
     "python",
-    "sql",
-    "java",
+    "2026",
+    "modern dev",
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cheatsheets = await getAllCheatsheets();
+  const simplifiedCheatsheets = cheatsheets.map(({ slug, title, description, category }) => ({
+    slug, title, description, category
+  }));
+
   return (
-    <html lang="en">
-      <body className="bg-primary text-white">
-        <ScrollRestoration />
-        <div className="min-h-screen flex flex-col">
-          <header className="bg-secondary shadow">
-            <div className="max-w-7xl mx-auto px-6 py-6">
-              <h1 className="text-4xl font-bold text-accent">Cheatsheets</h1>
-              <p className="text-sm text-gray-400 mt-1">
-                Your complete coding companion
-              </p>
-            </div>
-          </header>
-          <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-12">
-            {children}
-          </main>
-          <footer className="bg-secondary border-t border-gray-700 mt-12">
-            <div className="max-w-7xl mx-auto px-6 py-6 text-center text-gray-400">
-              <p>
-                Made with ❤️ by{" "}
-                <a
-                  href="https://github.com/workbydivyanshu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-accent hover:underline"
-                >
-                  workbydivyanshu
-                </a>
-              </p>
-            </div>
-          </footer>
-        </div>
+    <html lang="en" className="dark">
+      <body className="bg-primary text-white selection:bg-accent selection:text-primary">
+        <CheatsheetProvider cheatsheets={simplifiedCheatsheets}>
+          <ScrollRestoration />
+          <div className="min-h-screen flex flex-col relative overflow-hidden">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 blur-[120px] rounded-full -z-10" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-secondary/10 blur-[120px] rounded-full -z-10" />
+
+            <Navbar />
+
+            <main className="flex-1 relative z-10">
+              {children}
+            </main>
+
+            <footer className="border-t border-border/40 bg-secondary/30 backdrop-blur-md mt-24">
+              <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-8">
+                <div className="flex flex-col gap-2 items-center md:items-start">
+                  <div className="text-xl font-bold tracking-tight">
+                    Cheatsheets<span className="text-accent">.</span>
+                  </div>
+                  <p className="text-xs text-gray-500 font-medium">
+                    Built for the next generation of developers.
+                  </p>
+                </div>
+
+                <div className="flex gap-8 text-sm font-medium text-gray-400">
+                  <a href="https://github.com/workbydivyanshu" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
+                  <a href="/" className="hover:text-white transition-colors">All Guides</a>
+                </div>
+
+                <div className="text-gray-500 text-xs">
+                  &copy; 2026 Cheatsheets. Crafted by{" "}
+                  <a
+                    href="https://github.com/workbydivyanshu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-accent hover:underline font-semibold"
+                  >
+                    divyanshu
+                  </a>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </CheatsheetProvider>
       </body>
     </html>
   );

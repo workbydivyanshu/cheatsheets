@@ -1,0 +1,37 @@
+
+> cheatsheets@1.0.0 test:unit
+> vitest run --reporter=verbose
+
+
+[1m[46m RUN [49m[22m [36mv4.0.17 [39m[90m/home/divyu/Documents/GitHub/cheatsheets[39m
+
+ [32m✓[39m tests/unit/cheatsheets.test.ts[2m > [22mmarkdownToHtml integration in getCheatsheetBySlug[2m > [22mshould render markdown to HTML with correct Tailwind classes[32m 126[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Suites 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/e2e/cheatsheets.test.ts[2m [ tests/e2e/cheatsheets.test.ts ][22m
+[31m[1mError[22m: Playwright Test did not expect test.describe() to be called here.
+Most common reasons include:
+- You are calling test.describe() in a configuration file.
+- You are calling test.describe() in a file that is imported by the configuration file.
+- You have two different versions of @playwright/test. This usually happens
+  when one of the dependencies in your package.json depends on @playwright/test.[39m
+[90m [2m❯[22m TestTypeImpl._currentSuite node_modules/playwright/lib/common/testType.js:[2m75:13[22m[39m
+[90m [2m❯[22m TestTypeImpl._describe node_modules/playwright/lib/common/testType.js:[2m115:24[22m[39m
+[90m [2m❯[22m Function.describe node_modules/playwright/lib/transform/transform.js:[2m275:12[22m[39m
+[36m [2m❯[22m tests/e2e/cheatsheets.test.ts:[2m3:6[22m[39m
+    [90m  1| [39m[35mimport[39m { test[33m,[39m expect } [35mfrom[39m [32m'@playwright/test'[39m[33m;[39m
+    [90m  2| [39m
+    [90m  3| [39mtest[33m.[39m[34mdescribe[39m([32m'Cheatsheets E2E'[39m[33m,[39m () [33m=>[39m {
+    [90m   | [39m     [31m^[39m
+    [90m  4| [39m    test('should load the homepage and search for a cheatsheet', async…
+    [90m  5| [39m        [35mawait[39m page[33m.[39m[34mgoto[39m([32m'/'[39m)[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 14:31:08
+[2m   Duration [22m 140.43s[2m (transform 80ms, setup 112ms, import 131ms, tests 128ms, environment 857ms)[22m
+

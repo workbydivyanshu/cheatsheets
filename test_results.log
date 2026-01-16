@@ -1,0 +1,39 @@
+
+Running 3 tests using 3 workers
+
+[2m[WebServer] [22m [33m[1m⚠[22m[39m Port 3000 is in use by an unknown process, using available port 3004 instead.
+  ✓  1 [chromium] › tests/e2e/cheatsheets.test.ts:29:9 › Cheatsheets E2E › should filter by category (2.2s)
+  ✓  3 [chromium] › tests/e2e/cheatsheets.test.ts:46:9 › Cheatsheets E2E › should navigate back to index from a cheatsheet page (2.6s)
+  ✘  2 [chromium] › tests/e2e/cheatsheets.test.ts:4:9 › Cheatsheets E2E › should load the homepage and search for a cheatsheet (7.5s)
+
+
+  1) [chromium] › tests/e2e/cheatsheets.test.ts:4:9 › Cheatsheets E2E › should load the homepage and search for a cheatsheet 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/\/cheatsheet\/python/[39m
+    Received string:  [31m"http://localhost:3000/"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 5000ms[22m
+    [2m    4 × unexpected value "http://localhost:3000/"[22m
+    [2m    - waiting for" http://localhost:3000/" navigation to finish...[22m
+    [2m    - navigated to "http://localhost:3000/"[22m
+    [2m    2 × unexpected value "http://localhost:3000/"[22m
+
+
+      20 |
+      21 |         // Verify Python cheatsheet page
+    > 22 |         await expect(page).toHaveURL(/\/cheatsheet\/python/);
+         |                            ^
+      23 |         await expect(page.locator('h1').first()).toContainText('Python');
+      24 |
+      25 |         // Verify content is rendered
+        at /home/divyu/Documents/GitHub/cheatsheets/tests/e2e/cheatsheets.test.ts:22:28
+
+    Error Context: test-results/cheatsheets-Cheatsheets-E2-0086e-and-search-for-a-cheatsheet-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/e2e/cheatsheets.test.ts:4:9 › Cheatsheets E2E › should load the homepage and search for a cheatsheet 
+  2 passed (10.3s)

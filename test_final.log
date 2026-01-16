@@ -1,0 +1,8 @@
+
+Running 3 tests using 3 workers
+
+  ✓  1 [chromium] › tests/e2e/cheatsheets.test.ts:29:9 › Cheatsheets E2E › should filter by category (2.5s)
+  ✓  2 [chromium] › tests/e2e/cheatsheets.test.ts:4:9 › Cheatsheets E2E › should load the homepage and search for a cheatsheet (4.4s)
+  ✓  3 [chromium] › tests/e2e/cheatsheets.test.ts:46:9 › Cheatsheets E2E › should navigate back to index from a cheatsheet page (4.7s)
+
+  3 passed (11.7s)

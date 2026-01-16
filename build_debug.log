@@ -1,0 +1,35 @@
+
+> cheatsheets@1.0.0 build
+> next build
+
+   ▲ Next.js 15.5.9
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1536ms
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/33) ...
+   Generating static pages (8/33) 
+   Generating static pages (16/33) 
+   Generating static pages (24/33) 
+ ✓ Generating static pages (33/33)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                    12.5 kB         156 kB
+├ ○ /_not-found                            996 B         103 kB
+└ ● /cheatsheet/[slug]                     162 B         106 kB
+    ├ /cheatsheet/bash
+    ├ /cheatsheet/csharp
+    ├ /cheatsheet/cpp
+    └ [+26 more paths]
++ First Load JS shared by all             102 kB
+  ├ chunks/255-cb395327542b56ef.js       46.1 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js  54.4 kB
+  └ other shared chunks (total)          1.92 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
