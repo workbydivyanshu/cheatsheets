@@ -179,7 +179,7 @@ export default function Navbar() {
 
                     {isSearchOpen && inputValue && filteredResults.length === 0 && (
                         <div className="absolute right-0 top-full mt-2 w-80 bg-secondary border border-border/60 rounded-xl shadow-2xl p-4 text-center text-gray-400 text-sm">
-                            No results found for "{inputValue}"
+                            No results found for &quot;{inputValue}&quot;
                         </div>
                     )}
                 </div>
